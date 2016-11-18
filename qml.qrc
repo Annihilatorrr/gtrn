@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Fretboard.qml</file>
+        <file>GuitarString.qml</file>
+        <file>Note.qml</file>
+    </qresource>
+</RCC>
