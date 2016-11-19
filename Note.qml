@@ -10,7 +10,9 @@ Item {
         anchors.fill: parent
         color:parent.backgroundColor
         Text {
-            text:octave+name
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            text:name
         }
 
         MouseArea{

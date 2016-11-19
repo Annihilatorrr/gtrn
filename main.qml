@@ -2,7 +2,9 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
-ApplicationWindow {
+ApplicationWindow
+{
+    id:root
     visible: true
     width: 900
     height: 600
@@ -18,13 +20,15 @@ ApplicationWindow {
 
             color:"red"
             Fretboard {
+                id:fb
                 x:5
                 y:5
                 width:880
                 height:150
                 backgroundColor: "#4d1a00"
-                fretNumber:24
+                fretNumber:4
                 stringNumber:6
+                tuning:["E", "B", "G", "D", "A", "E"]
             }
         }
 

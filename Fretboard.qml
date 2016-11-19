@@ -25,18 +25,24 @@ Item {
             function caulculateFretDistances()
             {
                 var canvasWidth = width;
+                var fretBeginning = 30;
                 var stretchCoefficient = (canvasWidth - 50)/Math.ceil(canvasWidth - (canvasWidth / Math.pow(2,(24/12.0))));
-                for (var i = 0; i < fretNumber; ++i)
+                fretDistances[0] = 0;
+                for (var i = 0; i <= fretNumber; ++i)
                 {
                     var fraction = Math.pow(2,(i/12.0));
-                    fretDistances[i] = 20 + Math.ceil(canvasWidth - (canvasWidth / fraction))*stretchCoefficient;
+                    var distance = fretBeginning + Math.ceil(canvasWidth - (canvasWidth / fraction))*stretchCoefficient
+                    fretDistances[i+1] = distance;
                 }
+                var fd = fretDistances;
+                var r = 0;
             }
 
             function createStrings()
             {
-                var stringMargin = 12;
-                var stringActiveArea = 10;
+                var stringMargin = 5;
+
+                var stringActiveArea = 15;
                 var stringSpacing = (height - stringMargin*2 - stringNumber*stringActiveArea)/(stringNumber - 1)
                 for (var i = 0; i < stringNumber; ++i)
                 {
@@ -50,7 +56,8 @@ Item {
                         "activeAreaHeight":stringActiveArea,
                         "fretThickness":3,
                         "visible":true,
-                        "fretDistances": fretDistances
+                        "fretDistances": fretDistances,
+                        "initialNote":tuning[i]
                     };
                     fretRect.strings[i] = component.createObject(fretRect,settings);
                     fretRect.strings[i].notePressed.connect(function(octave, name){console.log("Note pressed", octave, name);});
@@ -69,32 +76,31 @@ Item {
             property color strokeStyle:  Qt.darker(fillStyle, 1.6)
             property color fillStyle: "#e0c31e" // yellow
             property int lineWidth: lineWidthCtrl.value
-            property bool fill: true
-            property bool stroke: true
-            property real scale : scaleCtrl.value
-            property real rotate : rotateCtrl.value
 
             onLineWidthChanged:requestPaint();
-            onFillChanged:requestPaint();
-            onStrokeChanged:requestPaint();
             onScaleChanged:requestPaint();
-            onRotateChanged:requestPaint();
 
             onPaint: {
                 var ctx = canvas.getContext('2d');
                 ctx.save();
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                //ctx.translate(originX, originX);
+
                 ctx.globalAlpha = canvas.alpha;
                 ctx.strokeStyle = canvas.strokeStyle;
                 ctx.fillStyle = canvas.fillStyle;
-                ctx.lineWidth = 3;
 
-                // ctx.scale(canvas.scale, canvas.scale);
-                // ctx.rotate(canvas.rotate);
+                // first fret
                 ctx.beginPath();
-                for (var i = 0; i < fretNumber; ++i)
+                ctx.lineWidth = 10;
+                ctx.moveTo(fretDistances[1], 2);
+                ctx.lineTo(fretDistances[1],height - 2);
+
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.lineWidth = 3;
+                for (var i = 2; i <= fretNumber+1; ++i)
                 {
+
                     ctx.moveTo(fretDistances[i], 2);
                     ctx.lineTo(fretDistances[i],height - 2);
                 }
