@@ -4,5 +4,42 @@
         <file>Fretboard.qml</file>
         <file>GuitarString.qml</file>
         <file>Note.qml</file>
+        <file>Content/A2.mp3</file>
+        <file>Content/A3.mp3</file>
+        <file>Content/A4.mp3</file>
+        <file>Content/Asharp2.mp3</file>
+        <file>Content/Asharp3.mp3</file>
+        <file>Content/Asharp4.mp3</file>
+        <file>Content/B2.mp3</file>
+        <file>Content/B3.mp3</file>
+        <file>Content/B4.mp3</file>
+        <file>Content/C2.mp3</file>
+        <file>Content/C3.mp3</file>
+        <file>Content/C4.mp3</file>
+        <file>Content/C5.mp3</file>
+        <file>Content/Csharp2.mp3</file>
+        <file>Content/Csharp3.mp3</file>
+        <file>Content/Csharp4.mp3</file>
+        <file>Content/D2.mp3</file>
+        <file>Content/D3.mp3</file>
+        <file>Content/D4.mp3</file>
+        <file>Content/Dsharp2.mp3</file>
+        <file>Content/Dsharp3.mp3</file>
+        <file>Content/Dsharp4.mp3</file>
+        <file>Content/E2.mp3</file>
+        <file>Content/E3.mp3</file>
+        <file>Content/E4.mp3</file>
+        <file>Content/F2.mp3</file>
+        <file>Content/F3.mp3</file>
+        <file>Content/F4.mp3</file>
+        <file>Content/Fsharp2.mp3</file>
+        <file>Content/Fsharp3.mp3</file>
+        <file>Content/Fsharp4.mp3</file>
+        <file>Content/G2.mp3</file>
+        <file>Content/G3.mp3</file>
+        <file>Content/G4.mp3</file>
+        <file>Content/Gsharp2.mp3</file>
+        <file>Content/Gsharp3.mp3</file>
+        <file>Content/Gsharp4.mp3</file>
     </qresource>
 </RCC>

@@ -1,4 +1,4 @@
-QT += qml quick
+QT += qml quick multimedia core gui
 
 CONFIG += c++11
 
@@ -15,3 +15,6 @@ include(deployment.pri)
 
 HEADERS += \
     soundplayer.h
+
+DISTFILES += \
+    Content/C.wav

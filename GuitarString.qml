@@ -77,7 +77,7 @@ Item {
     function createNotes(height, fretThickness)
     {
         var notesNumber = fretDistances.length
-        var octaveCounter = initialNoteOctave;
+        var octaveCounter = stringItem.initialNoteOctave;
         var fd = fretDistances;
         for (var i = 0, initialNoteIndex = notesNames.indexOf(initialNote); i < notesNumber - 1 ; ++i, ++initialNoteIndex)
         {
@@ -89,9 +89,15 @@ Item {
                 "width": fretDistances[i+1] - fretDistances[i] - fretThickness,
                 "height": activeAreaHeight,
                 "backgroundColor":"white",
-                "octave":stringItem.initialNoteOctave,
+                "octave":octaveCounter,
                 "name":notesNames[initialNoteIndex%12]
             };
+
+            if (initialNoteIndex%12 == 0 && initialNoteIndex != 0)
+            {
+                ++octaveCounter;
+            }
+
             var note = component.createObject(stringItem,settings);
             note.notePressed.connect(notePressed);
             note.notePressed.connect(onNotePressed);

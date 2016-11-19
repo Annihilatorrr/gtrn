@@ -6,6 +6,7 @@ Item {
     property color backgroundColor:"cyan"
     property int fretNumber:22
     property int stringNumber:3
+    signal notePressed(int octave, string name)
     property variant tuning:[]
     Rectangle {
         id:fretRect
@@ -47,7 +48,8 @@ Item {
                 for (var i = 0; i < stringNumber; ++i)
                 {
                     var component = Qt.createComponent("GuitarString.qml");
-
+                    var initialNoteOctave = tuning[i].slice(-1);
+                    var initialNote = tuning[i].slice(0, -1);
                     var settings = {
                         "x": 0,
                         "y": stringMargin + i*(stringSpacing + stringActiveArea),
@@ -57,9 +59,11 @@ Item {
                         "fretThickness":3,
                         "visible":true,
                         "fretDistances": fretDistances,
-                        "initialNote":tuning[i]
+                        "initialNote":initialNote,
+                        "initialNoteOctave":initialNoteOctave
                     };
                     fretRect.strings[i] = component.createObject(fretRect,settings);
+                    fretRect.strings[i].notePressed.connect(fretItem.notePressed);
                     fretRect.strings[i].notePressed.connect(function(octave, name){console.log("Note pressed", octave, name);});
                 }
             }

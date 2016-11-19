@@ -17,7 +17,7 @@ Item {
 
         MouseArea{
             anchors.fill: parent
-            onClicked: noteItem.notePressed(noteItem.octave, noteItem.name)
+            onPressed: noteItem.notePressed(noteItem.octave, noteItem.name)
         }
     }
 }

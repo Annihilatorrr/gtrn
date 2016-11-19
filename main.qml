@@ -6,7 +6,7 @@ ApplicationWindow
 {
     id:root
     visible: true
-    width: 900
+    width: 1024
     height: 600
     title: qsTr("Hello World")
     ColumnLayout{
@@ -21,14 +21,15 @@ ApplicationWindow
             color:"red"
             Fretboard {
                 id:fb
+                objectName:"FretboardObject"
                 x:5
                 y:5
-                width:880
+                width:1000
                 height:150
                 backgroundColor: "#4d1a00"
-                fretNumber:4
+                fretNumber:24
                 stringNumber:6
-                tuning:["E", "B", "G", "D", "A", "E"]
+                tuning:["E4", "B3", "G3", "D3", "A2", "E2"]
             }
         }
 

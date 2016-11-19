@@ -1,11 +1,23 @@
 #ifndef SOUNDPLAYER_H
 #define SOUNDPLAYER_H
 
+#include <QDebug>
+#include <QSound>
+#include <QMediaPlayer>
 
-class SoundPlayer
+class SoundPlayer:public QObject
 {
-public:
-    SoundPlayer();
+    Q_OBJECT
+
+
+   QMediaPlayer *m_player = new QMediaPlayer();
+
+   public:
+    SoundPlayer(QObject* parent = nullptr);
+
+    public slots:
+    void onNotePressed(int octave, const QString &msg);
+
 };
 
 #endif // SOUNDPLAYER_H
