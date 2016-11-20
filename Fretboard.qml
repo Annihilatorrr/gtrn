@@ -5,7 +5,7 @@ Item {
     id: fretItem
     property color backgroundColor:"cyan"
     property int fretNumber:22
-    property int stringNumber:3
+    property int stringNumber:tuning.length
     signal notePressed(int octave, string name)
     property variant tuning:[]
     Rectangle {
@@ -16,7 +16,7 @@ Item {
         border.width: 2
         border.color: "black"
         property int fretNumber:parent.fretNumber
-        property int stringNumber:parent.stringNumber
+        readonly property int stringNumber:parent.stringNumber
         property variant strings:[]
         Canvas {
             id: canvas
@@ -36,14 +36,13 @@ Item {
                     fretDistances[i+1] = distance;
                 }
                 var fd = fretDistances;
-                var r = 0;
             }
 
             function createStrings()
             {
                 var stringMargin = 5;
 
-                var stringActiveArea = 15;
+                var stringActiveArea = 20;
                 var stringSpacing = (height - stringMargin*2 - stringNumber*stringActiveArea)/(stringNumber - 1)
                 for (var i = 0; i < stringNumber; ++i)
                 {

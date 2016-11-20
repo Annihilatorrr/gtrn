@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+    engine.addImportPath("SettingsProvider");
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     QObject *rootObject = engine.rootObjects().first();
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     QObject *qmlObject = rootObject->findChild<QObject*>("FretboardObject");
     int x = qmlObject->property("x").toInt();
 
+    qDebug() << engine.importPathList();
     SoundPlayer myClass;
         QObject::connect(qmlObject, SIGNAL(notePressed(int, QString)),
                          &myClass, SLOT(onNotePressed(int, QString)));

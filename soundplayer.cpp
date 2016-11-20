@@ -10,7 +10,7 @@ void SoundPlayer::onNotePressed(int octave, const QString &note)
 {
     QString normalizeNoteName = note;
     normalizeNoteName.replace(QString("#"), QString("sharp"));
-    QString fileName = QString("qrc:/Content/%1%2.mp3").arg(normalizeNoteName, QString::number(octave));
+    QString fileName = QString("qrc:/Content/Notes/%1%2.mp3").arg(normalizeNoteName, QString::number(octave));
 
     // ...
     m_player->setMedia(QUrl(fileName));

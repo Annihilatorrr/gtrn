@@ -88,9 +88,13 @@ Item {
                 "y": 0,
                 "width": fretDistances[i+1] - fretDistances[i] - fretThickness,
                 "height": activeAreaHeight,
-                "backgroundColor":"white",
+                "backgroundColor":"blue",
                 "octave":octaveCounter,
-                "name":notesNames[initialNoteIndex%12]
+                "name":notesNames[initialNoteIndex%12],
+                "labelRadius":9,
+                "labelBackgroundColor":'#FF0000',
+                "labelBorderColor":'#C11B17',
+                "labelTextColor":"#FFFFFF"
             };
 
             if (initialNoteIndex%12 == 0 && initialNoteIndex != 0)
