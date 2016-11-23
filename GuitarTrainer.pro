@@ -3,7 +3,8 @@ QT += qml quick multimedia core gui
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    soundplayer.cpp
+    soundplayer.cpp \
+    settingshelper.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,4 +15,5 @@ QML2_IMPORT_PATH += ./SettingsProvider
 include(deployment.pri)
 
 HEADERS += \
-    soundplayer.h
+    soundplayer.h \
+    settingshelper.h

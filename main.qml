@@ -4,6 +4,9 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 
+import "Content/Scripts/common.js" as CommonJs
+import "Content/Scripts/main.js" as MainJs
+
 ApplicationWindow
 {
     id:root
@@ -11,7 +14,12 @@ ApplicationWindow
     width: 1124
     height: 600
     title: qsTr("Guitar trainer")
+
     property variant settingsWindow
+
+    property bool isMuted:false
+    property bool showNotesLabels:true
+
     toolBar:ToolBar {
         height:50
         RowLayout {
@@ -21,20 +29,7 @@ ApplicationWindow
                 width:48
                 iconSource: "/Content/Icons/toolbar_settings.png"
                 onClicked:{
-                    if (settingsWindow === undefined)
-                    {
-                        var component = Qt.createComponent("TrainerSettings.qml");
-                        if (component.status == Component.Ready)
-                        {
-                            settingsWindow = component.createObject(root);
-                        }
-                        else
-                        {
-                            console.log("Error while opening the settings window: ", component.errorString())
-                        }
-                    }
                     settingsWindow.show();
-
                 }
             }
             ToolButton {
@@ -77,7 +72,7 @@ ApplicationWindow
             Layout.fillWidth: true
             Layout.preferredHeight: 160
 
-            color:"red"
+            color:"white"
             Fretboard {
                 id:fb
                 objectName:"FretboardObject"
@@ -105,5 +100,27 @@ ApplicationWindow
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
+    }
+
+
+
+    Component.onCompleted:
+    {
+        settingsWindow = CommonJs.createComponentFromQmlFile("qrc:/TrainerSettings.qml", {}, null);
+        settingsWindow.closing.connect(MainJs.onSettingsWindowClosed);
+        isMuted = settingsWindow.fretSettings.isMuted
+        showNotesLabels = settingsWindow.fretSettings.showNotesLabels
+    }
+
+    Connections {
+            target: root
+            onIsMutedChanged:
+            {
+                fb.isMuted = isMuted;
+            }
+            onShowNotesLabelsChanged:
+            {
+                fb.showNotesLabels = showNotesLabels;
+            }
     }
 }

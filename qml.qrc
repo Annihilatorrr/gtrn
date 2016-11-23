@@ -43,5 +43,10 @@
         <file>Content/Notes/Gsharp3.mp3</file>
         <file>Content/Notes/Gsharp4.mp3</file>
         <file>TrainerSettings.qml</file>
+        <file>Content/Scripts/common.js</file>
+        <file>Content/Scripts/Fretboard.js</file>
+        <file>Content/Scripts/GuitarString.js</file>
+        <file>Content/Scripts/main.js</file>
+        <file>Content/Scripts/Note.js</file>
     </qresource>
 </RCC>

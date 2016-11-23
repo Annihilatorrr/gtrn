@@ -3,25 +3,23 @@ import QtQuick.Controls 1.4
 
 Item {
     id: fretItem
-    property color backgroundColor:"cyan"
+    property color backgroundColor:"white"
     property int fretNumber:22
     property int stringNumber:tuning.length
     signal notePressed(int octave, string name)
     property variant tuning:[]
+    property bool isMuted:false
+    property bool showNotesLabels:true
     Rectangle {
         id:fretRect
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
         color:parent.backgroundColor
-        border.width: 2
-        border.color: "black"
-        property int fretNumber:parent.fretNumber
-        readonly property int stringNumber:parent.stringNumber
-        property variant strings:[]
+        border.width: 0
+
+        property var strings:[]
         Canvas {
             id: canvas
             property variant fretDistances:[]
-            property int stringNumber:parent.stringNumber
 
             function caulculateFretDistances()
             {
@@ -38,7 +36,21 @@ Item {
                 var fd = fretDistances;
             }
 
-            function createStrings()
+            function onStringPicked(octave, name)
+            {
+                var ddd = isMuted;
+                if (!isMuted)
+                {
+                    console.log("Note pressed", octave, name);
+                    notePressed(octave, name);
+                }
+                else
+                {
+                    console.log("unmute");
+                }
+            }
+
+            function createStrings(stringNumber)
             {
                 var stringMargin = 5;
 
@@ -62,14 +74,15 @@ Item {
                         "initialNoteOctave":initialNoteOctave
                     };
                     fretRect.strings[i] = component.createObject(fretRect,settings);
-                    fretRect.strings[i].notePressed.connect(fretItem.notePressed);
-                    fretRect.strings[i].notePressed.connect(function(octave, name){console.log("Note pressed", octave, name);});
+                    fretRect.strings[i].showNotesLabels = showNotesLabels;
+                    fretRect.strings[i].notePressed.connect(onStringPicked);
+                    console.log("Setting for string #", i, " showNotesLabels = ", showNotesLabels)
                 }
             }
 
             Component.onCompleted:{
-                caulculateFretDistances()
-                createStrings()
+                caulculateFretDistances();
+                createStrings(stringNumber);
             }
 
             anchors.fill: parent
@@ -82,6 +95,19 @@ Item {
 
             onLineWidthChanged:requestPaint();
             onScaleChanged:requestPaint();
+            Connections
+            {
+                target:fretItem
+                onFretNumberChanged:canvas.requestPaint();
+                onShowNotesLabelsChanged:
+                {
+                    for (var i = 0; i < stringNumber; ++i)
+                    {
+                        fretRect.strings[i].showNotesLabels = showNotesLabels;
+                        console.log("Setting for string #", i, " showNotesLabels = ", showNotesLabels)
+                    }
+                }
+            }
 
             onPaint: {
                 var ctx = canvas.getContext('2d');
