@@ -1,6 +1,8 @@
 function drawString(canvas)
 {
     var context = canvas.getContext("2d");
+    var w = width;
+    var g = height;
     context.clearRect(0, 0, width, height);
     context.strokeStyle = createGradientForString(context);
 
@@ -16,18 +18,18 @@ function createGradientForString(context)
 {
     var gradient = context.createLinearGradient(0,0, 0,height )
     context.clearRect(0, 0, width, height);
-    gradient.addColorStop(0, "#000000");
-    gradient.addColorStop(0.45, "#C5CECE");
+
+    gradient.addColorStop(0.4, "#333333");
     gradient.addColorStop(0.5, "white");
-    gradient.addColorStop(0.55, "#C5CECE");
-    gradient.addColorStop(1, "#000000");
+    gradient.addColorStop(0.6, "#333333");
+
     return gradient;
 }
 
 
 function onNotePressed()
 {
-    sequentialStringWidthAnimation.running = true;
+   // sequentialStringWidthAnimation.running = true;
 }
 
 function createNotes(height, fretThickness)
@@ -35,10 +37,9 @@ function createNotes(height, fretThickness)
     var notesNumber = fretDistances.length
     var octaveCounter = stringItem.initialNoteOctave;
     var fd = fretDistances;
+    var l = notes.length;
     for (var i = 0, initialNoteIndex = notesNames.indexOf(initialNote); i < notesNumber - 1 ; ++i, ++initialNoteIndex)
     {
-
-
         var settings = {
             "x": fretDistances[i] + fretThickness/2,
             "y": 0,

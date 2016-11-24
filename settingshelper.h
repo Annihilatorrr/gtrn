@@ -13,6 +13,7 @@ public:
     Q_INVOKABLE void setValue(const QString &key, const QVariant &value);
     Q_INVOKABLE QVariant getValue(const QString &key, const QVariant &defaultValue = QVariant()) const;
     Q_INVOKABLE bool getBoolValue(const QString &key, const bool defaultValue);
+    Q_INVOKABLE int getIntValue(const QString &key, const bool defaultValue);
 signals:
 
 public slots:

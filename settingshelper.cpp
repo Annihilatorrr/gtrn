@@ -25,3 +25,9 @@ bool SettingsHelper::getBoolValue(const QString &key, const bool defaultValue)
     QSettings settings;
     return settings.value(key, defaultValue).toBool();
 }
+
+int SettingsHelper::getIntValue(const QString &key, const bool defaultValue)
+{
+    QSettings settings;
+    return settings.value(key, defaultValue).toInt();
+}

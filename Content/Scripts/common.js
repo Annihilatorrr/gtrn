@@ -1,14 +1,14 @@
-function createComponentFromQmlFile(fileName, settings, parentComponent)
+function createObjectFromQmlFile(fileName, settings, parentComponent)
 {
-    var settingsWindow;
+    var objectToCreate;
     var component = Qt.createComponent(fileName);
     if (component.status === Component.Ready)
     {
-        settingsWindow = component.createObject(parentComponent, settings);
+        objectToCreate = component.createObject(parentComponent, settings);
     }
     else
     {
         console.log("Error while creating component from:", filename, ": ", component.errorString())
     }
-    return settingsWindow;
+    return objectToCreate;
 }

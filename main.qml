@@ -19,6 +19,7 @@ ApplicationWindow
 
     property bool isMuted:false
     property bool showNotesLabels:true
+    property int fretsNumber:22
 
     toolBar:ToolBar {
         height:50
@@ -29,7 +30,9 @@ ApplicationWindow
                 width:48
                 iconSource: "/Content/Icons/toolbar_settings.png"
                 onClicked:{
-                    settingsWindow.show();
+                    settingsWindow.visible === false
+                           ? settingsWindow.show()
+                           : settingsWindow.requestActivate();
                 }
             }
             ToolButton {
@@ -81,7 +84,7 @@ ApplicationWindow
                 width:1100
                 height:150
                 backgroundColor: "#2B1B17"
-                fretNumber:22
+                fretsNumber:22
                 tuning:["E4", "B3", "G3", "D3", "A2", "E2"]
             }
         }
@@ -106,10 +109,9 @@ ApplicationWindow
 
     Component.onCompleted:
     {
-        settingsWindow = CommonJs.createComponentFromQmlFile("qrc:/TrainerSettings.qml", {}, null);
-        settingsWindow.closing.connect(MainJs.onSettingsWindowClosed);
-        isMuted = settingsWindow.fretSettings.isMuted
-        showNotesLabels = settingsWindow.fretSettings.showNotesLabels
+        settingsWindow = CommonJs.createObjectFromQmlFile("qrc:/TrainerSettings.qml", {}, null);
+        settingsWindow.closing.connect(MainJs.readCurrentSettings);
+        MainJs.readCurrentSettings();
     }
 
     Connections {
@@ -121,6 +123,10 @@ ApplicationWindow
             onShowNotesLabelsChanged:
             {
                 fb.showNotesLabels = showNotesLabels;
+            }
+            onFretsNumberChanged:
+            {
+                fb.fretsNumber = fretsNumber;
             }
     }
 }

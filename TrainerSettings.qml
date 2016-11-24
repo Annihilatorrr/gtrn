@@ -20,21 +20,25 @@ Window {
         "isMuted":false
     }
 
-    //flags: Qt.Window | Qt.WindowFullscreenButtonHint
+    flags: Qt.Popup | Qt.Tool
 
     SettingsHelper {
         id: settingsHelperId
     }
 
     GridLayout {
-        columns: 2
+        columns: 8
         rows:6
+        rowSpacing:2
+        columnSpacing:2
         anchors.fill: parent
+        anchors.margins: 10
         Rectangle{
             Layout.column: 0
             Layout.row:0
-            Layout.fillHeight: true
-            Layout.preferredWidth: 100
+            Layout.columnSpan:2
+            Layout.preferredHeight: 20
+            Layout.fillWidth: true
             color:"red"
             CheckBox {
                 id:isMutedId
@@ -42,16 +46,59 @@ Window {
             }
         }
         Rectangle {
+            Layout.column: 2
+            Layout.columnSpan: 6
+            Layout.fillWidth: true
+            Layout.preferredHeight: 20
+            color:"#ff8000"
+        }
+        Rectangle {
             Layout.column: 0
             Layout.row:1
+            Layout.columnSpan:2
             color: "blue"
-            Layout.fillHeight: true
-            Layout.preferredWidth: 100
+            Layout.fillWidth: true
+            Layout.preferredHeight: 20
             CheckBox {
                 id:showNotesLabelsId
                 text: "Show labels"
             }
         }
+        Rectangle {
+            Layout.column: 0
+            Layout.row:2
+            Layout.columnSpan: 4
+            color: "blue"
+            Layout.fillWidth: true
+            Layout.preferredHeight: 30
+            Label {
+
+                wrapMode: Label.Wrap
+                text:"Frets to display (1-24)"
+            }
+        }
+        Rectangle {
+            Layout.column: 4
+            Layout.row:2
+            Layout.columnSpan: 1
+            color: "blue"
+            Layout.fillWidth: true
+            Layout.preferredHeight: 30
+            TextField {
+                id: fretsNumberId
+                width:25
+                validator: IntValidator {bottom: 1; top: 24;}
+            }
+        }
+        Rectangle {
+            Layout.column: 0
+            Layout.row: 3
+            Layout.columnSpan: 8
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color:"#ff8000"
+        }
+
     }
 
     onClosing: {
@@ -60,6 +107,9 @@ Window {
 
         settingsHelperId.setValue("showNotesLabels", showNotesLabelsId.checked)
         fretSettings.showNotesLabels = showNotesLabelsId.checked;
+
+        settingsHelperId.setValue("fretsNumber", fretsNumberId.text)
+        fretSettings.fretsNumber = fretsNumberId.text;
     }
 
     Component.onCompleted: {
@@ -68,5 +118,10 @@ Window {
 
         fretSettings.showNotesLabels = settingsHelperId.getBoolValue("showNotesLabels", settingsWindowId.showNotesLabels);
         showNotesLabelsId.checked = fretSettings.showNotesLabels;
+
+        fretSettings.fretsNumber = settingsHelperId.getIntValue("fretsNumber", settingsWindowId.fretsNumber);
+        fretsNumberId.text = parseInt(fretSettings.fretsNumber);
+
+        console.log("")
     }
 }

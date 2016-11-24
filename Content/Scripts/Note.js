@@ -18,8 +18,7 @@ function drawMainLabel(context)
     context.fillStyle = labelBackgroundColor;
     context.strokeStyle = labelBorderColor;
     context.fill();
-//    context.lineWidth = 2;
-//    context.stroke();
+
     context.fillStyle = labelTextColor
 
     context.font = 'bold 9pt Arial';

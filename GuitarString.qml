@@ -2,12 +2,12 @@ import QtQuick 2.0
 import "Content/Scripts/GuitarString.js" as GuitarJs
 Item {
     id:stringItem
-    property variant fretDistances:[]
+    property var fretDistances:[]
     property string initialNote:"E"
     property int initialNoteOctave:1
     property int activeAreaHeight
     property int fretThickness
-    property int stringWidth:2
+    property int stringWidth:3
     property var notes:[]
     signal notePressed(int octave, string name)
     property bool showNotesLabels:true
@@ -25,9 +25,9 @@ Item {
                 id: stringWidthUpAnimation
                 target: stringItem
                 properties: "stringWidth"
-                from: 2
-                to: 3
-                duration: 70
+                from: 4
+                to: 8
+                duration: 30
                 easing {type: Easing.OutCubic}
            }
         // Then pause for 500ms
@@ -35,9 +35,9 @@ Item {
                 id:stringWidthDownAnimation
                 target: stringItem
                 properties: "stringWidth"
-                to: 2
-                from: 3
-                duration: 70
+                to: 4
+                from: 8
+                duration: 30
                 easing {type: Easing.OutCubic}
            }
     }
@@ -46,6 +46,7 @@ Item {
         id:guitarStringCanvas
         width: parent.width
         height: parent.height
+        antialiasing: true
         onPaint: GuitarJs.drawString(guitarStringCanvas)
     }
 
@@ -58,6 +59,7 @@ Item {
     }
 
     Component.onCompleted:{
+        guitarStringCanvas.requestPaint()
         GuitarJs.createNotes(activeAreaHeight, fretThickness);
     }
 }
