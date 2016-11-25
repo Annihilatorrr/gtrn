@@ -4,7 +4,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     soundplayer.cpp \
-    settingshelper.cpp
+    settingshelper.cpp \
+    notecontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,4 +17,5 @@ include(deployment.pri)
 
 HEADERS += \
     soundplayer.h \
-    settingshelper.h
+    settingshelper.h \
+    notecontroller.h

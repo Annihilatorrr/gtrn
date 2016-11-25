@@ -1,5 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
+import oleumsoft.com.utils 1.0
+
 import "Content/Scripts/Fretboard.js" as FretboardJs
 Item {
     id: fretItem
@@ -15,6 +17,20 @@ Item {
 
     property color fillStyle: "#ffffff" // yellow
     property color strokeStyle: "#ff00ff"
+
+    //onDisplayNonLabeledNote:{}
+    function onDisplayNonLabeledNote(octave, name){
+        console.log("Note to display nonlabeled", name, octave);
+    }
+
+    Connections{
+        target:noteController
+        onDisplayNonLabeledNote:
+        {
+            console.log("Note to display nonlabeled", note, octave);
+        }
+    }
+
     Rectangle {
         id:fretRect
         anchors.fill: parent
