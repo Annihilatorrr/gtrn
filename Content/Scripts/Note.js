@@ -21,9 +21,9 @@ function drawMainLabel(context)
 
     context.fillStyle = labelTextColor
 
-    context.font = 'bold 9pt Arial';
+    context.font = 'bold 10pt Arial';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
-    context.lineWidth = 3;
+    context.lineWidth = 1;
     context.fillText(name, centreX, centreY);
 }

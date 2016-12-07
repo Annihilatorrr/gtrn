@@ -48,8 +48,8 @@ function createNotes(height, fretThickness)
             "backgroundColor":"blue",
             "octave":octaveCounter,
             "name":notesNames[initialNoteIndex%12],
-            "labelRadius":9,
-            "labelBackgroundColor":'#FF0000',
+            "labelRadius":10,
+            "labelBackgroundColor":'#AAFFA500',
             "labelBorderColor":'#C11B17',
             "labelTextColor":"#FFFFFF"
         };
