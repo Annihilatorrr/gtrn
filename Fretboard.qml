@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
-import oleumsoft.com.utils 1.0
+
 
 import "Content/Scripts/Fretboard.js" as FretboardJs
 Item {
@@ -15,7 +15,7 @@ Item {
     property var fretDistances:[]
     property var strings:[]
 
-    property color fillStyle: "#ffffff" // yellow
+    property color fillStyle: "#ffffff"
     property color strokeStyle: "#ff00ff"
 
     //onDisplayNonLabeledNote:{}
@@ -54,16 +54,13 @@ Item {
             {
                 target:fretItem
                 onFretsNumberChanged:{
-                    fredboardCanvas.requestPaint();
+                    FretboardJs.calculateFretDistances();
                     FretboardJs.createStrings(stringNumber, fretRect)
+                    fredboardCanvas.requestPaint();
                 }
                 onShowNotesLabelsChanged:
                 {
-                    for (var i = 0; i < stringNumber; ++i)
-                    {
-                        strings[i].showNotesLabels = showNotesLabels;
-                        console.log("Setting for string #", i, " showNotesLabels = ", showNotesLabels)
-                    }
+                    FretboardJs.setNotesLabelsVisible(showNotesLabels)
                 }
             }
 

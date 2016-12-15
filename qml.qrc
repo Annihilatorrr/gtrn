@@ -48,5 +48,11 @@
         <file>Content/Scripts/GuitarString.js</file>
         <file>Content/Scripts/main.js</file>
         <file>Content/Scripts/Note.js</file>
+        <file>MenuPage.qml</file>
+        <file>MainMenuItemDelegate.qml</file>
+        <file>Content/Scripts/FretboardPage.js</file>
+        <file>Content/Scripts/TrainerSettings.js</file>
+        <file>FreemodeFretboardPage.qml</file>
+        <file>TrainingmodeFretboardPage.qml</file>
     </qresource>
 </RCC>

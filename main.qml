@@ -21,6 +21,7 @@ ApplicationWindow
     property bool showNotesLabels:true
     property int fretsNumber:22
 
+    property alias menuPage:menuPage
     toolBar:ToolBar {
         height:50
         RowLayout {
@@ -48,85 +49,34 @@ ApplicationWindow
                 Layout.alignment: Qt.AlignRight
             }
                 }
-        style: ToolBarStyle {
-            padding {
-                left: 8
-                right: 8
-                top: 3
-                bottom: 3
-            }
-            background: Rectangle {
-                implicitWidth: 100
-                implicitHeight: 40
-                border.color: "#999"
-                gradient: Gradient {
-                    GradientStop { position: 0 ; color: "#fff" }
-                    GradientStop { position: 1 ; color: "#eee" }
+            style: ToolBarStyle {
+                padding {
+                    left: 8
+                    right: 8
+                    top: 3
+                    bottom: 3
                 }
-            }
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    border.color: "#999"
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: "#fff" }
+                        GradientStop { position: 1 ; color: "#eee" }
+                    }
+                }
         }
     }
-    ColumnLayout{
-        spacing: 2
+    MenuPage
+    {
         anchors.fill: parent
-        Rectangle
-        {
-            Layout.alignment: Qt.AlignCenter
-            Layout.fillWidth: true
-            Layout.preferredHeight: 160
-
-            color:"white"
-            Fretboard {
-                id:fb
-                objectName:"FretboardObject"
-                x:5
-                y:5
-                width:1100
-                height:150
-                backgroundColor: "#2B1B17"
-                fretsNumber:22
-                tuning:["E4", "B3", "G3", "D3", "A2", "E2"]
-            }
-        }
-
-        Rectangle {
-            Layout.fillHeight: true
-            Column {
-                Slider {id: lineWidthCtrl ; minimumValue : 1 ; maximumValue : 10 ; value : 2 }
-                Slider {id: scaleCtrl ; minimumValue : 0.1 ; maximumValue : 10 ; value : 1 }
-                Slider {id: rotateCtrl ; minimumValue : 0 ; maximumValue : Math.PI*2 ; value : 0}
-            }
-        }
-
-        Rectangle {
-            color: "blue"
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
+        id: menuPage
     }
-
-
 
     Component.onCompleted:
     {
         settingsWindow = CommonJs.createObjectFromQmlFile("qrc:/TrainerSettings.qml", {}, null);
-        settingsWindow.closing.connect(MainJs.readCurrentSettings);
-        MainJs.readCurrentSettings();
-    }
-
-    Connections {
-            target: root
-            onIsMutedChanged:
-            {
-                fb.isMuted = isMuted;
-            }
-            onShowNotesLabelsChanged:
-            {
-                fb.showNotesLabels = showNotesLabels;
-            }
-            onFretsNumberChanged:
-            {
-                fb.fretsNumber = fretsNumber;
-            }
+        settingsWindow.closing.connect(menuPage.updatePagesSettings);
+        //MainJs.readCurrentSettings();
     }
 }

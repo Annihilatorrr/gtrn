@@ -7,7 +7,7 @@ import QtQuick.Layouts 1.0
 import Qt.labs.settings 1.0
 import QtQuick.Controls.Styles 1.0
 
-import oleumsoft.com.utils 1.0
+import "Content/Scripts/TrainerSettings.js" as TrainerSettingsJs
 
 Window {
     width: 320
@@ -22,9 +22,9 @@ Window {
 
     flags: Qt.Popup | Qt.Tool
 
-    SettingsHelper {
-        id: settingsHelperId
-    }
+//    SettingsHelper {
+//        id: settingsHelperId
+//    }
 
     GridLayout {
         columns: 8
@@ -102,26 +102,28 @@ Window {
     }
 
     onClosing: {
-        settingsHelperId.setValue("isMuted", isMutedId.checked)
-        fretSettings.isMuted = isMutedId.checked;
+        TrainerSettingsJs.writeCurrentSettings();
+//        settingsHelperId.setValue("isMuted", isMutedId.checked)
+//        fretSettings.isMuted = isMutedId.checked;
 
-        settingsHelperId.setValue("showNotesLabels", showNotesLabelsId.checked)
-        fretSettings.showNotesLabels = showNotesLabelsId.checked;
+//        settingsHelperId.setValue("showNotesLabels", showNotesLabelsId.checked)
+//        fretSettings.showNotesLabels = showNotesLabelsId.checked;
 
-        settingsHelperId.setValue("fretsNumber", fretsNumberId.text)
-        fretSettings.fretsNumber = fretsNumberId.text;
+//        settingsHelperId.setValue("fretsNumber", fretsNumberId.text)
+//        fretSettings.fretsNumber = fretsNumberId.text;
     }
 
     Component.onCompleted: {
-        fretSettings.isMuted = settingsHelperId.getBoolValue("isMuted", settingsWindowId.isMuted);
-        isMutedId.checked = fretSettings.isMuted;
+        TrainerSettingsJs.readCurrentSettings();
+//        fretSettings.isMuted = settingsHelperId.getBoolValue("isMuted", settingsWindowId.isMuted);
+//        isMutedId.checked = fretSettings.isMuted;
 
-        fretSettings.showNotesLabels = settingsHelperId.getBoolValue("showNotesLabels", settingsWindowId.showNotesLabels);
-        showNotesLabelsId.checked = fretSettings.showNotesLabels;
+//        fretSettings.showNotesLabels = settingsHelperId.getBoolValue("showNotesLabels", settingsWindowId.showNotesLabels);
+//        showNotesLabelsId.checked = fretSettings.showNotesLabels;
 
-        fretSettings.fretsNumber = settingsHelperId.getIntValue("fretsNumber", settingsWindowId.fretsNumber);
-        fretsNumberId.text = parseInt(fretSettings.fretsNumber);
+//        fretSettings.fretsNumber = settingsHelperId.getIntValue("fretsNumber", settingsWindowId.fretsNumber);
+//        fretsNumberId.text = parseInt(fretSettings.fretsNumber);
 
-        console.log("")
+//        console.log("")
     }
 }

@@ -1,7 +1,8 @@
 function drawLabel(canvas)
 {
+    //console.log("Drawing note");
     var context = canvas.getContext("2d");
-    context.clearRect(0, 0, width, height);
+    clear(context);
     if (showNotesLabels)
     {
         drawMainLabel(context);
@@ -26,4 +27,9 @@ function drawMainLabel(context)
     context.textBaseline = 'middle';
     context.lineWidth = 1;
     context.fillText(name, centreX, centreY);
+}
+
+function clear(context)
+{
+    context.clearRect(0, 0, width, height);
 }

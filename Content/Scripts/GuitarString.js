@@ -1,8 +1,9 @@
 function drawString(canvas)
 {
-    var context = canvas.getContext("2d");
+    console.log("Drawing string");
     var w = width;
     var g = height;
+    var context = canvas.getContext("2d");
     context.clearRect(0, 0, width, height);
     context.strokeStyle = createGradientForString(context);
 
@@ -66,3 +67,9 @@ function createNotes(height, fretThickness)
         notes[i].showNotesLabels = showNotesLabels;
     }
 }
+
+function clear(context)
+{
+    context.clearRect(0, 0, width, height);
+}
+
