@@ -8,7 +8,7 @@ function createComponentFromQmlFile(fileName)
     }
     else
     {
-        console.log("Error while creating component from:", filename, ": ", component.errorString())
+        console.debug("Error while creating component from:", filename, ": ", component.errorString())
     }
     return settingsWindow;
 }
@@ -33,21 +33,23 @@ function onStringPicked(octave, name)
 {
     if (!isMuted)
     {
-        console.log("Note pressed", octave, name);
+        console.debug("Note pressed", octave, name);
         notePressed(octave, name);
     }
     else
     {
-        console.log("muted");
+        console.debug("muted");
     }
 }
 
 function createStrings(stringNumber, parent)
 {
-    var stringMargin = 5;
+    console.debug("Creating strings", (!trainingMode && showNotesLabels) ? "with" : "without", "labels")
 
+    var stringMargin = 5;
     var stringActiveArea = 20;
     var stringSpacing = (height - stringMargin*2 - stringNumber*stringActiveArea)/(stringNumber - 1)
+
     for (var i = 0; i < stringNumber; ++i)
     {
         var component = Qt.createComponent("qrc:/GuitarString.qml");
@@ -74,10 +76,8 @@ function createStrings(stringNumber, parent)
         }
 
         strings[i] = component.createObject(parent,settings);
-        var dd = component.errorString();
-        strings[i].showNotesLabels = showNotesLabels;
+        strings[i].showNotesLabels = !trainingMode && showNotesLabels;
         strings[i].notePressed.connect(onStringPicked);
-        console.log("Setting for string #", i, " showNotesLabels = ", showNotesLabels)
     }
 }
 
@@ -86,8 +86,8 @@ function createGradientForFret(context)
     var gradient = context.createLinearGradient(0,0, 0,height )
     gradient.addColorStop(0, "#404040");
     gradient.addColorStop(0.02, "#C5CECE");
-    gradient.addColorStop(0.1, "#e6e6e6");
-    gradient.addColorStop(0.1, "#e6e6e6");
+    gradient.addColorStop(0.1, "#E6E6E6");
+    gradient.addColorStop(0.1, "#E6E6E6");
     gradient.addColorStop(0.98, "#C5CECE");
     gradient.addColorStop(1, "#404040");
     return gradient;
@@ -105,7 +105,7 @@ function createGradientForFirstFret(context)
 }
 
 function drawFretboard(canvas) {
-    console.log("Drawing fretboard");
+    console.debug("Drawing fretboard");
     var ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -118,7 +118,7 @@ function drawFretboard(canvas) {
     ctx.lineWidth = fretThickness;
     ctx.strokeStyle = createGradientForFret(ctx);
 
-    console.log("Drawing ", fretsNumber, " frets")
+    console.debug("Drawing ", fretsNumber, " frets")
     for (var i = 2; i <= fretsNumber + 1; ++i)
     {
         ctx.beginPath();
@@ -149,12 +149,12 @@ function drawFretboard(canvas) {
 function drawFilledCircle(x, y, radius, context)
 {
     context.save()
+
     context.beginPath()
     context.moveTo(x, y)
-
     context.arc(x, y, radius, 0, Math.PI*2, true);
-
     context.fill()
+
     context.restore()
 }
 
@@ -162,11 +162,7 @@ function setNotesLabelsVisible(visible)
 {
     for (var i = 0; i < stringNumber; ++i)
     {
-        var sn = stringNumber;
-        var sss = showNotesLabels;
-         var str = strings[i];
-        var dd = str.showNotesLabels;
         strings[i].showNotesLabels = visible;
-        console.log("Setting for string #", i, " showNotesLabels = ", showNotesLabels)
     }
+    console.debug("Settings strings", (!trainingMode && showNotesLabels) ? "with" : "without", "labels")
 }

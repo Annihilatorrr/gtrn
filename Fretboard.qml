@@ -21,14 +21,14 @@ Item {
 
     signal notePressed(int octave, string name)
     function onDisplayNonLabeledNote(octave, name){
-        console.log("Note to display nonlabeled", name, octave);
+        console.debug("Note to display nonlabeled", name, octave);
     }
 
     Connections{
         target:noteTrainer
-        onCorrectNotDetected:
+        onCorrectNoteDetected:
         {
-            console.log("Correct note", name, octave);
+            console.debug("Correct note", name, octave);
         }
     }
 
@@ -68,7 +68,7 @@ Item {
                 }
                 onShowNotesLabelsChanged:
                 {
-                    FretboardJs.setNotesLabelsVisible(showNotesLabels)
+                    FretboardJs.setNotesLabelsVisible(!trainingMode && showNotesLabels)
                 }
             }
 

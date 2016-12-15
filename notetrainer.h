@@ -14,7 +14,7 @@ public:
 
     Q_INVOKABLE void onNotePlayed(int octave, const QString note);
 signals:
-    void correctNotDetected(int octave, const QString name);
+    void correctNoteDetected(int octave, const QString name);
 public slots:
 };
 

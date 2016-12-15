@@ -12,5 +12,5 @@ void NoteTrainer::startGame()
 
 void NoteTrainer::onNotePlayed(int octave, const QString name)
 {
-    emit correctNotDetected(octave, name);
+    emit correctNoteDetected(octave, name);
 }

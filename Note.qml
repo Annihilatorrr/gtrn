@@ -7,12 +7,12 @@ Item {
     property color backgroundColor:"blue"
     property int octave:0
     property string name:""
-    property int labelRadius
-    property color labelBackgroundColor
-    property color labelBorderColor
-    property color labelTextColor
+    property int normalLabelRadius
+    property color normalLabelBackgroundColor
+    property color normalLabelBorderColor
+    property color normalLabelTextColor
     property bool showNotesLabels:true
-
+    property var displayingState:"normal"
     property bool previousNoteVisibility:false
 
     signal notePressed(int octave, string name)

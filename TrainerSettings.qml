@@ -22,10 +22,6 @@ Window {
 
     flags: Qt.Popup | Qt.Tool
 
-//    SettingsHelper {
-//        id: settingsHelperId
-//    }
-
     GridLayout {
         columns: 8
         rows:6
@@ -103,27 +99,9 @@ Window {
 
     onClosing: {
         TrainerSettingsJs.writeCurrentSettings();
-//        settingsHelperId.setValue("isMuted", isMutedId.checked)
-//        fretSettings.isMuted = isMutedId.checked;
-
-//        settingsHelperId.setValue("showNotesLabels", showNotesLabelsId.checked)
-//        fretSettings.showNotesLabels = showNotesLabelsId.checked;
-
-//        settingsHelperId.setValue("fretsNumber", fretsNumberId.text)
-//        fretSettings.fretsNumber = fretsNumberId.text;
     }
 
     Component.onCompleted: {
         TrainerSettingsJs.readCurrentSettings();
-//        fretSettings.isMuted = settingsHelperId.getBoolValue("isMuted", settingsWindowId.isMuted);
-//        isMutedId.checked = fretSettings.isMuted;
-
-//        fretSettings.showNotesLabels = settingsHelperId.getBoolValue("showNotesLabels", settingsWindowId.showNotesLabels);
-//        showNotesLabelsId.checked = fretSettings.showNotesLabels;
-
-//        fretSettings.fretsNumber = settingsHelperId.getIntValue("fretsNumber", settingsWindowId.fretsNumber);
-//        fretsNumberId.text = parseInt(fretSettings.fretsNumber);
-
-//        console.log("")
     }
 }

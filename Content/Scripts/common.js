@@ -8,7 +8,7 @@ function createObjectFromQmlFile(fileName, settings, parentComponent)
     }
     else
     {
-        console.log("Error while creating component from:", filename, ": ", component.errorString())
+        console.debug("Error while creating component from:", filename, ": ", component.errorString())
     }
     return objectToCreate;
 }
