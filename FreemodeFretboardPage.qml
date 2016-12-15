@@ -21,7 +21,7 @@ Item
             Layout.fillWidth: true
             Layout.preferredHeight: 160
 
-            color:"white"
+            color:"#2F4F4F"
             Fretboard
             {
                 id:fb

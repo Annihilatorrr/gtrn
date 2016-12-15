@@ -13,6 +13,8 @@ Item {
     property color labelTextColor
     property bool showNotesLabels:true
 
+    property bool previousNoteVisibility:false
+
     signal notePressed(int octave, string name)
 
     Rectangle {
@@ -29,9 +31,23 @@ Item {
             anchors.fill: parent
             onPressed: {
                 noteItem.notePressed(noteItem.octave, noteItem.name)
-                //noteCanvas.requestPaint()
+                previousNoteVisibility = showNotesLabels
+                showNotesLabels = true;
+                noteCanvas.requestPaint()
+                visibilityTimer.start()
             }
         }
+
+        Timer {
+                id:visibilityTimer
+                interval: 3000; running: false; repeat: false;
+                onTriggered:
+                {
+                    showNotesLabels = previousNoteVisibility;
+                    noteCanvas.requestPaint()
+                }
+            }
+
     }
     onShowNotesLabelsChanged: noteCanvas.requestPaint()
 }

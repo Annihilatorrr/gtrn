@@ -4,30 +4,40 @@ import QtQuick.Controls 1.4
 
 import "Content/Scripts/Fretboard.js" as FretboardJs
 Item {
-    id: fretItem
-    property color backgroundColor:"white"
+    id: fretBoardItem
+    property color backgroundColor:"#D2691E"
+    property color fretMarkerColor: "#ffffff"
+
     property int fretsNumber:22
+    property var tuning:[]
     property int stringNumber:tuning.length
-    signal notePressed(int octave, string name)
-    property variant tuning:[]
+    property int fretThickness:3
+
     property bool isMuted:false
     property bool showNotesLabels:true
-    property var fretDistances:[]
+    property bool trainingMode:false
+    property var absoluteFretDistances:[]
     property var strings:[]
 
-    property color fillStyle: "#ffffff"
-    property color strokeStyle: "#ff00ff"
-
-    //onDisplayNonLabeledNote:{}
+    signal notePressed(int octave, string name)
     function onDisplayNonLabeledNote(octave, name){
         console.log("Note to display nonlabeled", name, octave);
     }
 
     Connections{
-        target:noteController
-        onDisplayNonLabeledNote:
+        target:noteTrainer
+        onCorrectNotDetected:
         {
-            console.log("Note to display nonlabeled", note, octave);
+            console.log("Correct note", name, octave);
+        }
+    }
+
+    onNotePressed:
+    {
+        soundPlayer.onNotePressed(octave, name);
+        if (trainingMode)
+        {
+            noteTrainer.onNotePlayed(octave, name);
         }
     }
 
@@ -45,14 +55,12 @@ Item {
             }
 
             anchors.fill: parent
-
             antialiasing: true
-
             onScaleChanged:requestPaint();
 
             Connections
             {
-                target:fretItem
+                target:fretBoardItem
                 onFretsNumberChanged:{
                     FretboardJs.calculateFretDistances();
                     FretboardJs.createStrings(stringNumber, fretRect)

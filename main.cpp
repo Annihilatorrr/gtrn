@@ -3,7 +3,7 @@
 #include <QQmlContext>
 #include "soundplayer.h"
 #include "settingshelper.h"
-#include "notecontroller.h"
+#include "notetrainer.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,11 +16,13 @@ int main(int argc, char *argv[])
     //qmlRegisterType<SettingsHelper>("oleumsoft.com.utils", 1, 0, "SettingsHelper");
     //qmlRegisterType<NoteController>("oleumsoft.com.utils", 1, 0, "NoteController");
     QQmlApplicationEngine engine;
-    QScopedPointer<NoteController> noteController(new NoteController);
+    QScopedPointer<NoteTrainer> noteTrainer(new NoteTrainer);
     QScopedPointer<SettingsHelper> settingsHelper(new SettingsHelper);
+    QScopedPointer<SoundPlayer> soundPlayer(new SoundPlayer);
 
-    engine.rootContext()->setContextProperty("noteController", noteController.data());
+    engine.rootContext()->setContextProperty("noteTrainer", noteTrainer.data());
     engine.rootContext()->setContextProperty("settingsHelper", settingsHelper.data());
+    engine.rootContext()->setContextProperty("soundPlayer", soundPlayer.data());
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
@@ -30,12 +32,12 @@ int main(int argc, char *argv[])
     //int x = qmlObject->property("x").toInt();
 
     //qDebug() << engine.importPathList();
-    QScopedPointer<SoundPlayer> soundPlayer(new SoundPlayer);
-    //QObject::connect(qmlObject, SIGNAL(notePressed(int, QString)), soundPlayer.data(), SLOT(onNotePressed(int, QString)));
+//    QScopedPointer<SoundPlayer> soundPlayer(new SoundPlayer);
+//    QObject::connect(qmlObject, SIGNAL(notePressed(int, QString)), soundPlayer.data(), SLOT(onNotePressed(int, QString)));
 
 
 
     //QObject::connect(noteController.data(), SIGNAL(displayNonLabeledNote(int, QVariant)), qmlObject, SLOT(displayNonLabeledNote(int, QVariant)));
-    noteController->startGame();
+    //noteController->startGame();
     return app.exec();
 }

@@ -29,6 +29,7 @@ Item
                 x:5
                 y:5
                 width:1100
+                trainingMode: true
                 height:150
                 backgroundColor: "#2B1B17"
                 fretsNumber:22

@@ -1,6 +1,5 @@
 function drawString(canvas)
 {
-    console.log("Drawing string");
     var w = width;
     var g = height;
     var context = canvas.getContext("2d");
