@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-
+import QtQuick.Controls 2.0
 import "Content/Scripts/FretboardPage.js" as FretboardPageJs
 
 Item
@@ -11,15 +11,14 @@ Item
     property bool showNotesLabels:true
     property int fretsNumber:22
 
-    ColumnLayout
+    Column
     {
         spacing: 2
         anchors.fill: parent
         Rectangle
         {
-            Layout.alignment: Qt.AlignCenter
-            Layout.fillWidth: true
-            Layout.preferredHeight: 160
+            width:parent.width
+            height: 160
 
             color:"white"
             Fretboard
@@ -36,6 +35,50 @@ Item
                 tuning:["E4", "B3", "G3", "D3", "A2", "E2"]
             }
         }
+        ListView {
+            id: listView1
+            height: 30
+            width: 430
+            interactive: false
+            anchors.horizontalCenter:parent.horizontalCenter
+            orientation: ListView.Horizontal
+            spacing:15
+            delegate: Item {
+                id: item
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                width: 80
+                height:50
+                Button {
+                    anchors.fill: parent
+                    text: noteName
+
+                    onClicked: {
+                        textIndex.text = index
+                    }
+                }
+            }
+
+            model: ListModel {
+                id: listModel
+                ListElement {
+                    noteName: ""
+                }
+
+                ListElement {
+                    noteName: ""
+                }
+                ListElement {
+                    noteName: ""
+                }
+                ListElement {
+                    noteName: ""
+                }
+                ListElement {
+                    noteName: ""
+                }
+            }
+        }
         Rectangle
         {
             color: "blue"
@@ -46,6 +89,7 @@ Item
     Component.onCompleted:
     {
         FretboardPageJs.readCurrentSettings();
+        noteTrainer.onStartTraining();
     }
 
     Connections

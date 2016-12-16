@@ -5,9 +5,9 @@ NoteTrainer::NoteTrainer(QObject *parent) : QObject(parent)
 
 }
 
-void NoteTrainer::startGame()
+void NoteTrainer::onStartTraining()
 {
-    //emit displayNonLabeledNote(2, "C#");
+    emit displayNonLabeledNote(2, 3);
 }
 
 void NoteTrainer::onNotePlayed(int octave, const QString name)

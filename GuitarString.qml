@@ -4,7 +4,7 @@ Item {
     id:stringItem
     property var fretDistances:[]
     property string initialNote:"E"
-    property int initialNoteOctave:1
+    property int stringInitialNoteOctave:1
     property int activeAreaHeight
     property int fretThickness
     property int stringWidth:3

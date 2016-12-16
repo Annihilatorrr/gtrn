@@ -10,11 +10,12 @@ class NoteTrainer : public QObject
     QString m_expectedNoteName;
 public:
     explicit NoteTrainer(QObject *parent = 0);
-    void startGame();
 
+    Q_INVOKABLE void onStartTraining();
     Q_INVOKABLE void onNotePlayed(int octave, const QString note);
 signals:
     void correctNoteDetected(int octave, const QString name);
+    void displayNonLabeledNote(int stringNumber, int noteNumber);
 public slots:
 };
 

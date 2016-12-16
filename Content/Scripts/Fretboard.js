@@ -53,7 +53,7 @@ function createStrings(stringNumber, parent)
     for (var i = 0; i < stringNumber; ++i)
     {
         var component = Qt.createComponent("qrc:/GuitarString.qml");
-        var initialNoteOctave = tuning[i].slice(-1);
+        var stringInitialNoteOctave = tuning[i].slice(-1);
         var initialNote = tuning[i].slice(0, -1);
         var fretDistancesToDisplay = absoluteFretDistances.slice(0, fretsNumber + 2)
         var settings = {
@@ -66,7 +66,7 @@ function createStrings(stringNumber, parent)
             "visible":true,
             "fretDistances": fretDistancesToDisplay,
             "initialNote":initialNote,
-            "initialNoteOctave":initialNoteOctave
+            "stringInitialNoteOctave":stringInitialNoteOctave
         };
 
         var guitarString = strings[i];

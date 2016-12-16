@@ -20,15 +20,16 @@ Item {
     property var strings:[]
 
     signal notePressed(int octave, string name)
-    function onDisplayNonLabeledNote(octave, name){
-        console.debug("Note to display nonlabeled", name, octave);
-    }
 
     Connections{
         target:noteTrainer
         onCorrectNoteDetected:
         {
             console.debug("Correct note", name, octave);
+        }
+        onDisplayNonLabeledNote:
+        {
+            console.debug("Note to display nonlabeled", stringNumber, fretNumber);
         }
     }
 

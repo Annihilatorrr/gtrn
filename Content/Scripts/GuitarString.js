@@ -35,7 +35,7 @@ function onNotePressed()
 function createNotes(height, fretThickness)
 {
     var notesNumber = fretDistances.length
-    var octaveCounter = stringItem.initialNoteOctave;
+    var octaveCounter = stringItem.stringInitialNoteOctave;
     var fd = fretDistances;
     var l = notes.length;
     for (var i = 0, initialNoteIndex = notesNames.indexOf(initialNote); i < notesNumber - 1 ; ++i, ++initialNoteIndex)
