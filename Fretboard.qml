@@ -20,6 +20,7 @@ Item {
     property var strings:[]
 
     signal notePressed(int octave, string name)
+    signal nonlabeledNoteDisplayed(var noteName)
 
     Connections{
         target:noteTrainer
@@ -29,17 +30,18 @@ Item {
         }
         onDisplayNonLabeledNote:
         {
-            console.debug("Note to display nonlabeled", stringNumber, fretNumber);
+            if (trainingMode)
+            {
+                console.debug("Note to display nonlabeled", stringPosition, fretPosition);
+                var displayedNoteName = strings[stringPosition - 1].displayNonLabeledNote(fretPosition);
+                nonlabeledNoteDisplayed(displayedNoteName);
+            }
         }
     }
 
     onNotePressed:
     {
         soundPlayer.onNotePressed(octave, name);
-        if (trainingMode)
-        {
-            noteTrainer.onNotePlayed(octave, name);
-        }
     }
 
     Rectangle {

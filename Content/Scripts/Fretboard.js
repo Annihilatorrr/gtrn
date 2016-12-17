@@ -1,3 +1,6 @@
+var chromaticMultipliers = [1.0, 1.05946, 1.122462, 1.189207, 1.259921, 1.334839, 1.414213, 1.498307, 1.587401, 1.681792, 1.781797, 1.887748, 2.0,
+                            2.118926, 2.244924, 2.378414, 2.519842, 2.669679, 2.828427, 2.996614, 3.174802, 3.363585, 3.563594, 3.775497, 4];
+
 function createComponentFromQmlFile(fileName)
 {
     var component = Qt.createComponent(fileName);
@@ -17,9 +20,6 @@ function calculateFretDistances()
 {
     var canvasWidth = width;
     var fretBeginning = 25;
-    var chromaticMultipliers = [1.0, 1.05946, 1.122462, 1.189207, 1.259921, 1.334839, 1.414213, 1.498307, 1.587401, 1.681792, 1.781797, 1.887748, 2.0,
-                                2.118926, 2.244924, 2.378414, 2.519842, 2.669679, 2.828427, 2.996614, 3.174802, 3.363585, 3.563594, 3.775497, 4];
-
     var stretchCoefficient = (canvasWidth - 50)/Math.ceil(canvasWidth - (canvasWidth / Math.pow(2,(24/12.0))));
     absoluteFretDistances[0] = 0;
     for (var i = 0; i <= fretsNumber; ++i)
@@ -33,12 +33,12 @@ function onStringPicked(octave, name)
 {
     if (!isMuted)
     {
-        console.debug("Note pressed", octave, name);
+        console.debug("Sounds", octave, name);
         notePressed(octave, name);
     }
     else
     {
-        console.debug("muted");
+        console.debug("Muted", octave, name);
     }
 }
 
@@ -69,7 +69,6 @@ function createStrings(stringNumber, parent)
             "stringInitialNoteOctave":stringInitialNoteOctave
         };
 
-        var guitarString = strings[i];
         if (strings[i] !== undefined)
         {
             strings[i].destroy();
@@ -160,8 +159,10 @@ function drawFilledCircle(x, y, radius, context)
 
 function setNotesLabelsVisible(visible)
 {
-    for (var i = 0; i < stringNumber; ++i)
+
+    for (var i = 0; i < strings.length; ++i)
     {
+        var string = strings[i];
         strings[i].showNotesLabels = visible;
     }
     console.debug("Settings strings", (!trainingMode && showNotesLabels) ? "with" : "without", "labels")

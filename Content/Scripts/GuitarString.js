@@ -6,7 +6,6 @@ function drawString(canvas)
     context.clearRect(0, 0, width, height);
     context.strokeStyle = createGradientForString(context);
 
-    // Draw a line
     context.beginPath();
     context.lineWidth = stringWidth;
     context.moveTo(0, height/2);
@@ -38,7 +37,7 @@ function createNotes(height, fretThickness)
     var octaveCounter = stringItem.stringInitialNoteOctave;
     var fd = fretDistances;
     var l = notes.length;
-    for (var i = 0, initialNoteIndex = notesNames.indexOf(initialNote); i < notesNumber - 1 ; ++i, ++initialNoteIndex)
+    for (var i = 0, nameIndex = notesNames.indexOf(initialNote); i < notesNumber - 1 ; ++i, ++nameIndex)
     {
         var settings = {
             "x": fretDistances[i] + fretThickness/2,
@@ -47,14 +46,14 @@ function createNotes(height, fretThickness)
             "height": activeAreaHeight,
             "backgroundColor":"blue",
             "octave":octaveCounter,
-            "name":notesNames[initialNoteIndex%12],
+            "name":notesNames[nameIndex%12],
             "normalLabelRadius":10,
             "normalLabelBackgroundColor":'#AAFFA500',
             "normalLabelBorderColor":'#C11B17',
             "normalLabelTextColor":"#FFFFFF"
         };
 
-        if (initialNoteIndex%12 == 0 && initialNoteIndex != 0)
+        if (nameIndex%12 == 0 && nameIndex != 0)
         {
             ++octaveCounter;
         }

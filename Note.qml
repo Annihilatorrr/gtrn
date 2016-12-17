@@ -3,6 +3,13 @@ import QtQuick.Controls 2.0
 
 import "Content/Scripts/Note.js" as NoteJs
 Item {
+    QtObject {
+            id: d
+            readonly property int normalState:0
+            readonly property int nonlabeledState:1
+            readonly property int correctState:2
+            readonly property int wrongState:3
+        }
     id:noteItem
     property color backgroundColor:"blue"
     property int octave:0
@@ -12,7 +19,7 @@ Item {
     property color normalLabelBorderColor
     property color normalLabelTextColor
     property bool showNotesLabels:true
-    property var displayingState:"normal"
+    property int displayingState:d.normalState
     property bool previousNoteVisibility:false
 
     signal notePressed(int octave, string name)
@@ -50,5 +57,13 @@ Item {
 
     }
     onShowNotesLabelsChanged: noteCanvas.requestPaint()
+
+    function displayNonLabeled()
+    {
+        displayingState = d.nonlabeledState;
+        noteCanvas.requestPaint();
+    }
+
+
 }
 

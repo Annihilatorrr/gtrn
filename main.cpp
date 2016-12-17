@@ -1,12 +1,14 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QTime>
 #include "soundplayer.h"
 #include "settingshelper.h"
 #include "notetrainer.h"
 
 int main(int argc, char *argv[])
 {
+    qsrand(QTime::currentTime().msec());
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
     app.setOrganizationName("oleumsoft");

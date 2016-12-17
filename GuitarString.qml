@@ -11,7 +11,7 @@ Item {
     property var notes:[]
     signal notePressed(int octave, string name)
     property bool showNotesLabels:true
-    property variant notesNames:["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", ]
+    property var notesNames:["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
     onStringWidthChanged: guitarStringCanvas.requestPaint()
 
@@ -54,12 +54,22 @@ Item {
     {
         var notesNumber = fretDistances.length
         for (var i = 0; i < notesNumber - 1 ; ++i)
+        {
             notes[i].showNotesLabels = showNotesLabels;
+        }
         guitarStringCanvas.requestPaint()
     }
 
     Component.onCompleted:{
         guitarStringCanvas.requestPaint()
         GuitarJs.createNotes(activeAreaHeight, fretThickness);
+    }
+
+    function displayNonLabeledNote(fretPosition)
+    {
+        notes[fretPosition].displayNonLabeled();
+        var noteName = notes[fretPosition].name;
+        console.debug("displayNonLabeled:", noteName);
+        return noteName;
     }
 }
