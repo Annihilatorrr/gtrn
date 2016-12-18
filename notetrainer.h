@@ -25,7 +25,6 @@ public:
     void updateSettings(int maxStringNumber, int maxFretNumber);
     NotePosition getRandomNote();
 signals:
-    void correctNoteDetected(int octave, const QString name);
     void displayNonLabeledNote(int stringPosition, int fretPosition);
 public slots:
 };

@@ -12,16 +12,16 @@ ApplicationWindow
     id:root
     visible: true
     width: 1124
-    height: 600
+    height: 250
     title: qsTr("Guitar trainer")
 
     property variant settingsWindow
-
     property bool isMuted:false
     property bool showNotesLabels:true
     property int fretsNumber:22
 
     property alias menuPage:menuPage
+
     toolBar:ToolBar {
         height:50
         RowLayout {
@@ -51,15 +51,14 @@ ApplicationWindow
                 }
             style: ToolBarStyle {
                 padding {
-                    left: 8
+                    left: 18
                     right: 8
                     top: 3
                     bottom: 3
                 }
                 background: Rectangle {
-                    implicitWidth: 100
-                    implicitHeight: 40
-                    border.color: "#999"
+                   anchors.fill: parent
+                    border.color: "#aaf999"
                     gradient: Gradient {
                         GradientStop { position: 0 ; color: "#fff" }
                         GradientStop { position: 1 ; color: "#eee" }

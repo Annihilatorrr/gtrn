@@ -25,7 +25,7 @@ Item
             color:"white"
             Fretboard
             {
-                id:fb
+                id:fretBoard
                 objectName:"FretboardObject"
                 x:5
                 y:5
@@ -80,25 +80,6 @@ Item
             }
 
             model: notesToSelect
-//                ListModel {
-//                id: listModel
-//                ListElement {
-//                    noteName: notesToSelect[0]
-//                }
-
-//                ListElement {
-//                    noteName: notesToSelect[1]
-//                }
-//                ListElement {
-//                    noteName: ""
-//                }
-//                ListElement {
-//                    noteName: ""
-//                }
-//                ListElement {
-//                    noteName: ""
-//                }
-//            }
         }
         Rectangle
         {
@@ -107,10 +88,11 @@ Item
             Layout.fillHeight: true
         }
     }
+
     Component.onCompleted:
     {
         FretboardPageJs.readCurrentSettings();
-        noteTrainer.onStartTraining(fb.stringNumber, fb.fretsNumber);
+        noteTrainer.onStartTraining(fretBoard.stringNumber, fretBoard.fretsNumber);
     }
 
     Connections
@@ -118,15 +100,15 @@ Item
         target: fretboardPage
         onIsMutedChanged:
         {
-            fb.isMuted = isMuted;
+            fretBoard.isMuted = isMuted;
         }
         onShowNotesLabelsChanged:
         {
-            fb.showNotesLabels = showNotesLabels;
+            fretBoard.showNotesLabels = showNotesLabels;
         }
         onFretsNumberChanged:
         {
-            fb.fretsNumber = fretsNumber;
+            fretBoard.fretsNumber = fretsNumber;
         }
     }
 

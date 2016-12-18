@@ -24,10 +24,7 @@ Item {
 
     Connections{
         target:noteTrainer
-        onCorrectNoteDetected:
-        {
-            console.debug("Correct note", name, octave);
-        }
+
         onDisplayNonLabeledNote:
         {
             if (trainingMode)
@@ -52,14 +49,16 @@ Item {
 
         Canvas {
             id: fredboardCanvas
+            anchors.fill: parent
+            antialiasing: true
+
+            onPaint:FretboardJs.drawFretboard(fredboardCanvas)
+            onScaleChanged:requestPaint();
+
             Component.onCompleted:{
                 FretboardJs.calculateFretDistances();
                 FretboardJs.createStrings(stringNumber, fretRect);
             }
-
-            anchors.fill: parent
-            antialiasing: true
-            onScaleChanged:requestPaint();
 
             Connections
             {
@@ -75,7 +74,7 @@ Item {
                 }
             }
 
-            onPaint:FretboardJs.drawFretboard(fredboardCanvas)
+
         }
     }
 }

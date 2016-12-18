@@ -24,7 +24,7 @@ Item
             color:"#2F4F4F"
             Fretboard
             {
-                id:fb
+                id:fretBoard
                 objectName:"FretboardObject"
                 x:5
                 y:5
@@ -52,15 +52,15 @@ Item
         target: fretboardPage
         onIsMutedChanged:
         {
-            fb.isMuted = isMuted;
+            fretBoard.isMuted = isMuted;
         }
         onShowNotesLabelsChanged:
         {
-            fb.showNotesLabels = showNotesLabels;
+            fretBoard.showNotesLabels = showNotesLabels;
         }
         onFretsNumberChanged:
         {
-            fb.fretsNumber = fretsNumber;
+            fretBoard.fretsNumber = fretsNumber;
         }
     }
 
