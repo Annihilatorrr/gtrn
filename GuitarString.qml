@@ -9,7 +9,10 @@ Item {
     property int fretThickness
     property int stringWidth:3
     property var notes:[]
+
     signal notePressed(int octave, string name)
+    signal nonLabeledDisplayingStopped();
+
     property bool showNotesLabels:true
     property var notesNames:["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
@@ -55,7 +58,7 @@ Item {
         var notesNumber = fretDistances.length
         for (var i = 0; i < notesNumber - 1 ; ++i)
         {
-            notes[i].showNotesLabels = showNotesLabels;
+            notes[i].setVisible(showNotesLabels);
         }
         guitarStringCanvas.requestPaint()
     }
@@ -71,5 +74,30 @@ Item {
         var noteName = notes[fretPosition].name;
         console.debug("displayNonLabeled:", noteName);
         return noteName;
+    }
+
+    function displayNonLabeledNoteAsWrong(fretPosition)
+    {
+        if (notes[fretPosition] !== undefined)
+        {
+            notes[fretPosition].displayNonLabeledNoteAsWrong();
+        }
+        else // it can be if a user cuts down fret number so that current note appears to be out of bound
+        {
+            nonLabeledDisplayingStopped();
+        }
+
+    }
+
+    function displayNonLabeledNoteAsRight(fretPosition)
+    {
+        if (notes[fretPosition] !== undefined)
+        {
+            notes[fretPosition].displayNonLabeledNoteAsRight();
+        }
+        else // it can be if a user cuts down fret number so that current note appears to be out of bound
+        {
+            nonLabeledDisplayingStopped();
+        }
     }
 }

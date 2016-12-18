@@ -5,22 +5,24 @@ import QtQuick.Controls 1.4
 import "Content/Scripts/Fretboard.js" as FretboardJs
 Item {
     id: fretBoardItem
+
     property color backgroundColor:"#D2691E"
     property color fretMarkerColor: "#ffffff"
-
     property int fretsNumber:22
-    property var tuning:[]
     property int stringNumber:tuning.length
     property int fretThickness:3
-
     property bool isMuted:false
     property bool showNotesLabels:true
     property bool trainingMode:false
     property var absoluteFretDistances:[]
     property var strings:[]
+    property var tuning:[]
+    property int currentNonLabeledNoteStringIndex
+    property int currentNonlabeledNoteFretIndex
 
     signal notePressed(int octave, string name)
     signal nonlabeledNoteDisplayed(var noteName)
+    signal nonLabeledDisplayingStopped();
 
     Connections{
         target:noteTrainer
@@ -29,8 +31,10 @@ Item {
         {
             if (trainingMode)
             {
-                console.debug("Note to display nonlabeled", stringPosition, fretPosition);
-                var displayedNoteName = strings[stringPosition - 1].displayNonLabeledNote(fretPosition);
+                currentNonLabeledNoteStringIndex = stringPosition;
+                currentNonlabeledNoteFretIndex = fretPosition
+                console.debug("Note to display nonlabeled", currentNonLabeledNoteStringIndex, currentNonlabeledNoteFretIndex);
+                var displayedNoteName = strings[currentNonLabeledNoteStringIndex - 1].displayNonLabeledNote(currentNonlabeledNoteFretIndex);
                 nonlabeledNoteDisplayed(displayedNoteName);
             }
         }
@@ -73,8 +77,16 @@ Item {
                     FretboardJs.setNotesLabelsVisible(!trainingMode && showNotesLabels)
                 }
             }
-
-
         }
+    }
+
+    function displayNonLabeledNoteAsWrong()
+    {
+        strings[currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsWrong(currentNonlabeledNoteFretIndex);
+    }
+
+    function displayNonLabeledNoteAsRight()
+    {
+        strings[currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsRight(currentNonlabeledNoteFretIndex);
     }
 }

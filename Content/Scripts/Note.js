@@ -2,17 +2,13 @@ function drawLabel(canvas)
 {
     var context = canvas.getContext("2d");
     context.clearRect(0, 0, width, height);
-    if (showNotesLabels || displayingState == d.nonlabeledState)
-    {
-        drawMainLabel(context);
-    }
+    drawMainLabel(context);
 }
 
 function drawMainLabel(context)
 {
     var centreX = width / 2;
     var centreY = height / 2;
-
 
     context.beginPath();
     context.textAlign = 'center';
@@ -33,13 +29,14 @@ function getRadius()
     var radius = 0;
     switch(displayingState)
     {
-    case d.normalState:
+    case d.normalVisibleState:
+    case d.normalInvisibleState:
         radius = normalLabelRadius;
         break;
     case d.nonlabeledState:
         radius = normalLabelRadius;
         break;
-    case d.correctState:
+    case d.rightState:
         radius = normalLabelRadius;
         break;
     case d.wrongState:
@@ -54,19 +51,19 @@ function getBackgroundColor()
     var color = "white";
     switch(displayingState)
     {
-    case d.normalState:
+    case d.normalVisibleState:
+    case d.normalInvisibleState:
         color = normalLabelBackgroundColor;
         break;
     case d.nonlabeledState:
         color = "#ee82ee";
         break;
-    case d.correctState:
-        color = normalLabelBackgroundColor;
+    case d.rightState:
+        color = rightNoteBackgroundColor;
         break;
     case d.wrongState:
-        color = normalLabelBackgroundColor;
+        color = wrongNoteBackgroundColor;
         break;
     }
     return color;
-
 }

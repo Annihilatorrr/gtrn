@@ -39,10 +39,14 @@ Item
                 onNonlabeledNoteDisplayed:
                 {
                     expectedNoteName = noteName;
-                    console.debug("expectedNoteName", expectedNoteName);
-                    notesToSelect = CommonJs.getRandomNotesArrayWithOneDefined(noteName, 5);
-                    console.debug("Random array:", notesToSelect);
+                    console.debug("Expected note name", expectedNoteName);
+                    notesToSelect = CommonJs.getRandomNotesArrayWithOneDefined(expectedNoteName, 5);
+                    console.debug("Array of random notes:", notesToSelect);
+                }
 
+                onNonLabeledDisplayingStopped:
+                {
+                    noteTrainer.onGetNextNote();
                 }
             }
         }
@@ -68,13 +72,14 @@ Item
 
                         if(text === expectedNoteName)
                         {
-                            console.debug('Correct')
+                            fretBoard.displayNonLabeledNoteAsRight()
+                            console.debug('right')
                         }
                         else
                         {
-                            console.debug('Incorrect')
+                            fretBoard.displayNonLabeledNoteAsWrong()
+                            console.debug('wrong')
                         }
-                        noteTrainer.onGetNextNote();
                     }
                 }
             }
@@ -115,5 +120,6 @@ Item
     function updateSettings()
     {
         FretboardPageJs.readCurrentSettings();
+        noteTrainer.onUpdateSettings(fretBoard.stringNumber, fretBoard.fretsNumber)
     }
 }

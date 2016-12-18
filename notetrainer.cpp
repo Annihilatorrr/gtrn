@@ -7,18 +7,13 @@ NoteTrainer::NoteTrainer(QObject *parent) : QObject(parent)
 
 void NoteTrainer::onStartTraining(int maxStringNumber, int maxFretNumber)
 {
+    qDebug("NoteTrainer::onStartTraining");
     m_maxFretNumber = maxFretNumber;
     m_maxStringNumber = maxStringNumber;
 
     QTimer *timer = new QTimer(this);
-//    connect(timer, &QTimer::timeout, this, [=,this]
-//    {
-//        int randomString =  1 + qrand() % maxStringNumber;
-//        int randomFret =  1 + qrand() % maxFretNumber;
-//        emit displayNonLabeledNote(randomString, randomFret);
-//    });
-    //timer->start(10000);
-    QTimer::singleShot(0, [this](){
+
+    QTimer::singleShot(100, [this](){
         NotePosition np = getRandomNote();
         emit displayNonLabeledNote(np.stringNumber, np.fretNumber);
     });
@@ -31,8 +26,9 @@ void NoteTrainer::onGetNextNote()
     emit displayNonLabeledNote(np.stringNumber, np.fretNumber);
 }
 
-void NoteTrainer::updateSettings(int maxStringNumber, int maxFretNumber)
+void NoteTrainer::onUpdateSettings(int maxStringNumber, int maxFretNumber)
 {
+    qDebug("NoteTrainer::updateSettings");
     m_maxFretNumber = maxFretNumber;
     m_maxStringNumber = maxStringNumber;
 }

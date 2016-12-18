@@ -22,7 +22,7 @@ public:
     Q_INVOKABLE void onStartTraining(int maxStringNumber, int maxFretNumber);
     Q_INVOKABLE void onGetNextNote();
 
-    void updateSettings(int maxStringNumber, int maxFretNumber);
+    Q_INVOKABLE void onUpdateSettings(int maxStringNumber, int maxFretNumber);
     NotePosition getRandomNote();
 signals:
     void displayNonLabeledNote(int stringPosition, int fretPosition);

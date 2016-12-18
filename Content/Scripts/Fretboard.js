@@ -47,7 +47,7 @@ function createStrings(stringNumber, parent)
     console.debug("Creating strings", (!trainingMode && showNotesLabels) ? "with" : "without", "labels")
 
     var stringMargin = 5;
-    var stringActiveArea = 20;
+    var stringActiveArea = 26;
     var stringSpacing = (height - stringMargin*2 - stringNumber*stringActiveArea)/(stringNumber - 1)
 
     for (var i = 0; i < stringNumber; ++i)
@@ -63,6 +63,7 @@ function createStrings(stringNumber, parent)
             "height": stringActiveArea,
             "activeAreaHeight":stringActiveArea,
             "fretThickness":3,
+            "stringWidth":i,
             "visible":true,
             "fretDistances": fretDistancesToDisplay,
             "initialNote":initialNote,
@@ -77,6 +78,7 @@ function createStrings(stringNumber, parent)
         strings[i] = component.createObject(parent,settings);
         strings[i].showNotesLabels = !trainingMode && showNotesLabels;
         strings[i].notePressed.connect(onStringPicked);
+        strings[i].nonLabeledDisplayingStopped.connect(nonLabeledDisplayingStopped);
     }
 }
 

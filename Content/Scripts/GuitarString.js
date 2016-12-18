@@ -59,10 +59,20 @@ function createNotes(height, fretThickness)
         }
 
         var component = Qt.createComponent("qrc:/Note.qml");
-        notes[i] = component.createObject(stringItem,settings);
-        notes[i].notePressed.connect(notePressed);
-        notes[i].notePressed.connect(onNotePressed);
-        notes[i].showNotesLabels = showNotesLabels;
+        if( component.status !== Component.Ready )
+        {
+        if( component.status === Component.Error )
+                console.debug("Error:"+ component.errorString() );
+        }
+        else
+        {
+
+            notes[i] = component.createObject(stringItem,settings);
+            notes[i].notePressed.connect(notePressed);
+            notes[i].nonLabeledDisplayingStopped.connect(nonLabeledDisplayingStopped);
+            //notes[i].notePressed.connect(onNotePressed);
+            notes[i].setVisible(showNotesLabels);
+        }
     }
 }
 
