@@ -45,10 +45,10 @@ function onStringPicked(octave, name)
 function createStrings(stringNumber, parent)
 {
     console.debug("Creating strings", (!trainingMode && showNotesLabels) ? "with" : "without", "labels")
+    var edgeMargin = 10;
 
-    var stringMargin = 5;
-    var stringActiveArea = 26;
-    var stringSpacing = (height - stringMargin*2 - stringNumber*stringActiveArea)/(stringNumber - 1)
+    var labelHeight = 20;
+    var spaceBetweenStrings = (height - edgeMargin*2)/(stringNumber - 1)
 
     for (var i = 0; i < stringNumber; ++i)
     {
@@ -58,10 +58,9 @@ function createStrings(stringNumber, parent)
         var fretDistancesToDisplay = absoluteFretDistances.slice(0, fretsNumber + 2)
         var settings = {
             "x": 0,
-            "y": stringMargin + i*(stringSpacing + stringActiveArea),
+            "y": edgeMargin + i*spaceBetweenStrings - labelHeight/2,
             "width": width,
-            "height": stringActiveArea,
-            "activeAreaHeight":stringActiveArea,
+            "height": labelHeight,
             "fretThickness":3,
             "stringWidth":i,
             "visible":true,

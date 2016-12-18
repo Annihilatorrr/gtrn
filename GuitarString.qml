@@ -2,10 +2,11 @@ import QtQuick 2.0
 import "Content/Scripts/GuitarString.js" as GuitarJs
 Item {
     id:stringItem
+
     property var fretDistances:[]
     property string initialNote:"E"
     property int stringInitialNoteOctave:1
-    property int activeAreaHeight
+
     property int fretThickness
     property int stringWidth:3
     property var notes:[]
@@ -65,7 +66,7 @@ Item {
 
     Component.onCompleted:{
         guitarStringCanvas.requestPaint()
-        GuitarJs.createNotes(activeAreaHeight, fretThickness);
+        GuitarJs.createNotes(height, fretThickness);
     }
 
     function displayNonLabeledNote(fretPosition)

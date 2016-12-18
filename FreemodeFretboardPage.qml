@@ -13,7 +13,7 @@ Item
 
     ColumnLayout
     {
-        spacing: 2
+        spacing: 22
         anchors.fill: parent
         Rectangle
         {

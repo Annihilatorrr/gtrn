@@ -38,17 +38,17 @@ Item {
                 property: "opacity"
                 from: displayingState === d.normalVisibleState ? 1.0: 0
                 to: displayingState === d.normalVisibleState ? 0: 1.0
-                duration: 1000
+                duration: 300
                 easing {type: Easing.OutCubic}
            }
-        PauseAnimation { duration: 3000 }
+        PauseAnimation { duration: 2000 }
         NumberAnimation {
                 id:opacityDownAnimation
                 target: noteItem
                 property: "opacity"
                 to: displayingState === d.normalVisibleState ? 1.0: 0
                 from: displayingState === d.normalVisibleState ? 0: 1.0
-                duration: 1000
+                duration: 300
                 easing {type: Easing.OutCubic}
            }
     }
@@ -101,7 +101,9 @@ Item {
         color:"transparent"
         Canvas{
             id:noteCanvas
-            anchors.fill: parent
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height:20
             antialiasing:true
             onPaint: NoteJs.drawLabel(noteCanvas);
         }
@@ -113,6 +115,7 @@ Item {
             }
         }
     }
+
     onDisplayingStateChanged: noteCanvas.requestPaint()
 
     onOpacityChanged:noteCanvas.requestPaint()

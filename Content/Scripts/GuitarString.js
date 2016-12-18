@@ -43,7 +43,7 @@ function createNotes(height, fretThickness)
             "x": fretDistances[i] + fretThickness/2,
             "y": 0,
             "width": fretDistances[i+1] - fretDistances[i] - fretThickness,
-            "height": activeAreaHeight,
+            "height": height,
             "backgroundColor":"blue",
             "octave":octaveCounter,
             "name":notesNames[nameIndex%12],
