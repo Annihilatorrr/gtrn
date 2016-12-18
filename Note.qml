@@ -12,12 +12,12 @@ Item {
             readonly property int wrongState:4
         }
     id:noteItem
-    property color backgroundColor:"blue"
+
     property color wrongNoteBackgroundColor:"red"
     property color rightNoteBackgroundColor:"green"
     property int octave:0
     property string name:""
-    property int normalLabelRadius
+    property int normalLabelRadius:height/2
     property color normalLabelBackgroundColor
     property color normalLabelBorderColor
     property color normalLabelTextColor
@@ -101,9 +101,7 @@ Item {
         color:"transparent"
         Canvas{
             id:noteCanvas
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height:20
+            anchors.fill: parent
             antialiasing:true
             onPaint: NoteJs.drawLabel(noteCanvas);
         }

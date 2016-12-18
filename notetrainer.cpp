@@ -1,5 +1,6 @@
 #include "notetrainer.h"
 #include <QTimer>
+
 NoteTrainer::NoteTrainer(QObject *parent) : QObject(parent)
 {
 
@@ -7,13 +8,12 @@ NoteTrainer::NoteTrainer(QObject *parent) : QObject(parent)
 
 void NoteTrainer::onStartTraining(int maxStringNumber, int maxFretNumber)
 {
-    qDebug("NoteTrainer::onStartTraining");
+    qDebug("C++: NoteTrainer::onStartTraining");
     m_maxFretNumber = maxFretNumber;
     m_maxStringNumber = maxStringNumber;
 
-    QTimer *timer = new QTimer(this);
-
-    QTimer::singleShot(100, [this](){
+   QTimer::singleShot(100, [this]()
+   {
         NotePosition np = getRandomNote();
         emit displayNonLabeledNote(np.stringNumber, np.fretNumber);
     });
@@ -28,7 +28,7 @@ void NoteTrainer::onGetNextNote()
 
 void NoteTrainer::onUpdateSettings(int maxStringNumber, int maxFretNumber)
 {
-    qDebug("NoteTrainer::updateSettings");
+    qDebug("C++: NoteTrainer::updateSettings");
     m_maxFretNumber = maxFretNumber;
     m_maxStringNumber = maxStringNumber;
 }

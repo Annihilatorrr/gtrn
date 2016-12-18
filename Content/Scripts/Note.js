@@ -18,10 +18,10 @@ function drawMainLabel(context)
     context.strokeStyle = normalLabelBorderColor;
     context.fill();
     context.fillStyle = normalLabelTextColor
-    context.font = 'bold 10pt Arial';
+    context.font = 'bold 11pt Arial';
 
     context.lineWidth = 1;
-    context.fillText(displayingState == d.nonlabeledState ? "?":name, centreX, centreY);
+    context.fillText(displayingState == d.nonlabeledState ? "?":name, centreX, centreY + 2);
 }
 
 function getRadius()

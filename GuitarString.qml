@@ -2,7 +2,11 @@ import QtQuick 2.0
 import "Content/Scripts/GuitarString.js" as GuitarJs
 Item {
     id:stringItem
-
+    Rectangle
+    {
+        anchors.fill: parent
+        color:"transparent"
+    }
     property var fretDistances:[]
     property string initialNote:"E"
     property int stringInitialNoteOctave:1

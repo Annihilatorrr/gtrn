@@ -17,10 +17,15 @@ function getRandomNotesArrayWithOneDefined(definedNoteName, arraySize)
 {
     var noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
     var randomNotes = [];
+
     while(randomNotes.length < arraySize)
     {
         var randomnumber = Math.floor(Math.random() * noteNames.length); // [0...11]
-        if(randomNotes.indexOf(noteNames[randomnumber]) > -1) continue;
+        if(randomNotes.indexOf(noteNames[randomnumber]) > -1)
+        {
+            continue;
+        }
+
         randomNotes[randomNotes.length] = noteNames[randomnumber];
     }
 

@@ -8,14 +8,13 @@ SettingsHelper::SettingsHelper(QObject *parent) : QObject(parent)
 void SettingsHelper::setValue(const QString &key, const QVariant &value)
 {
     QSettings settings;
-    qDebug() << settings.fileName();
+    qDebug() << "Setting" << key << "=" << value << "(location:" << settings.fileName();
     settings.setValue(key, value);
 }
 
 QVariant SettingsHelper::getValue(const QString &key, const QVariant &defaultValue) const
 {
     QSettings settings;
-    qDebug() << settings.fileName();
     QVariant value = settings.value(key, defaultValue);
     return value;
 }

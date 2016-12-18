@@ -125,6 +125,7 @@ function drawFretboard(canvas) {
         ctx.moveTo(absoluteFretDistances[i], 0);
         ctx.lineTo(absoluteFretDistances[i],height);
         ctx.stroke();
+
         switch(i)
         {
         case 3:
@@ -160,11 +161,10 @@ function drawFilledCircle(x, y, radius, context)
 
 function setNotesLabelsVisible(visible)
 {
-
-    for (var i = 0; i < strings.length; ++i)
+    strings.forEach(function(item)
     {
-        var string = strings[i];
-        strings[i].showNotesLabels = visible;
-    }
+        item.showNotesLabels = visible;
+    });
+
     console.debug("Settings strings", (!trainingMode && showNotesLabels) ? "with" : "without", "labels")
 }

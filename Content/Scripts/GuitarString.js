@@ -44,11 +44,9 @@ function createNotes(height, fretThickness)
             "y": 0,
             "width": fretDistances[i+1] - fretDistances[i] - fretThickness,
             "height": height,
-            "backgroundColor":"blue",
             "octave":octaveCounter,
             "name":notesNames[nameIndex%12],
-            "normalLabelRadius":10,
-            "normalLabelBackgroundColor":'#AAFFA500',
+            "normalLabelBackgroundColor":'#CCFFA500',
             "normalLabelBorderColor":'#C11B17',
             "normalLabelTextColor":"#FFFFFF"
         };
