@@ -9,6 +9,8 @@ import QtQuick.Controls.Styles 1.0
 
 import "Content/Scripts/TrainerSettings.js" as TrainerSettingsJs
 
+import  './Styles'
+
 Window {
     width: 320
     height: 240
@@ -29,63 +31,87 @@ Window {
         columnSpacing:2
         anchors.fill: parent
         anchors.margins: 10
-        Rectangle{
+
+        CheckBox {
             Layout.column: 0
             Layout.row:0
-            Layout.columnSpan:2
+            Layout.columnSpan:1
             Layout.preferredHeight: 20
-            Layout.fillWidth: true
-            color:"red"
-            CheckBox {
-                id:isMutedId
-                text: "Mute"
-            }
+            Layout.fillWidth: false
+            id:isMutedId
+            text: "Mute"
+            style: CheckBoxWithRectangleStyle{}
         }
+
+        Rectangle {
+            Layout.column: 1
+            Layout.row:0
+            Layout.columnSpan: 7
+            Layout.fillWidth: true
+            Layout.preferredHeight: 20
+            color:"#ff8000"
+        }
+
+        CheckBox {
+            id:showNotesLabelsId
+            Layout.column: 0
+            Layout.row:1
+            Layout.columnSpan:2
+            Layout.fillWidth: false
+            Layout.preferredHeight: 20
+            text: "Show labels"
+            style: CheckBoxWithRectangleStyle{}
+        }
+
         Rectangle {
             Layout.column: 2
+            Layout.row:1
             Layout.columnSpan: 6
             Layout.fillWidth: true
             Layout.preferredHeight: 20
             color:"#ff8000"
         }
-        Rectangle {
-            Layout.column: 0
-            Layout.row:1
-            Layout.columnSpan:2
-            color: "blue"
-            Layout.fillWidth: true
-            Layout.preferredHeight: 20
-            CheckBox {
-                id:showNotesLabelsId
-                text: "Show labels"
-            }
-        }
-        Rectangle {
+
+        Label {
             Layout.column: 0
             Layout.row:2
-            Layout.columnSpan: 4
-            color: "blue"
-            Layout.fillWidth: true
-            Layout.preferredHeight: 30
-            Label {
-
-                wrapMode: Label.Wrap
-                text:"Frets to display (1-24)"
-            }
+            Layout.columnSpan: 3
+            Layout.fillWidth: false
+            Layout.preferredHeight: 15
+            text:"Frets to display (1-24):"
         }
-        Rectangle {
-            Layout.column: 4
+
+        Label {
+            id: fretsNumberId
+            Layout.preferredWidth:15
+            Layout.fillWidth: false
+            Layout.column: 3
             Layout.row:2
             Layout.columnSpan: 1
-            color: "blue"
-            Layout.fillWidth: true
-            Layout.preferredHeight: 30
-            TextField {
-                id: fretsNumberId
-                width:25
-                validator: IntValidator {bottom: 1; top: 24;}
-            }
+            Layout.preferredHeight: 15
+            text: Qt.binding(function() { return fretsNumberSliderId.value; })
         }
+
+        Slider {
+            id: fretsNumberSliderId
+            Layout.preferredHeight: 35
+            Layout.row:2
+            Layout.column: 4
+            Layout.columnSpan: 3
+            value: 22
+            minimumValue: 1
+            maximumValue: 24
+        }
+
+        Rectangle {
+            Layout.column: 7
+            Layout.row:2
+            Layout.columnSpan: 1
+            Layout.fillWidth: true
+            Layout.preferredHeight: 20
+            color:"#ff8000"
+        }
+
         Rectangle {
             Layout.column: 0
             Layout.row: 3

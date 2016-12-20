@@ -54,5 +54,6 @@
         <file>Content/Scripts/TrainerSettings.js</file>
         <file>FreemodeFretboardPage.qml</file>
         <file>TrainingmodeFretboardPage.qml</file>
+        <file>Styles/CheckBoxWithRectangleStyle.qml</file>
     </qresource>
 </RCC>
