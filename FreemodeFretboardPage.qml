@@ -29,6 +29,7 @@ Item
             Fretboard
             {
                 id:fretBoard
+
                 objectName:"FretboardObject"
                 x:5
                 y:5
@@ -46,6 +47,7 @@ Item
             color: "blue"
         }
     }
+
     Component.onCompleted:
     {
         FretboardPageJs.readCurrentSettings();

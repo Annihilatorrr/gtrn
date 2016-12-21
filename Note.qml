@@ -1,7 +1,9 @@
-import QtQuick 2.0
+import QtQuick 2.7
 import QtQuick.Controls 2.0
 
 import "Content/Scripts/Note.js" as NoteJs
+import  "./Animations"
+
 Item {
     id:noteItem
 
@@ -28,67 +30,35 @@ Item {
 
     signal notePressed(int octave, string name)
     signal nonLabeledDisplayingStopped();
+    signal displayNonLabeled();
+    signal setVisible(bool isVisible);
+    signal displayNonLabeledNoteAsWrong();
+    signal displayNonLabeledNoteAsRight();
 
-    SequentialAnimation {
-        id: sequentialNormalNoteAnimation
-        loops: 1
-        running: false
+    onDisplayNonLabeled:NoteJs.displayNonLabeled();
+    onSetVisible:NoteJs.setVisible(isVisible)
+    onDisplayNonLabeledNoteAsWrong:NoteJs.displayNonLabeledNoteAsWrong();
+    onDisplayNonLabeledNoteAsRight:NoteJs.displayNonLabeledNoteAsRight();
 
-        NumberAnimation {
-                id: opacityUpAnimation
-                target: noteItem
-                property: "opacity"
-                from: displayingState === d.normalVisibleState ? 1.0: 0
-                to: displayingState === d.normalVisibleState ? 0: 1.0
-                duration: 300
-                easing {type: Easing.OutCubic}
-           }
-        PauseAnimation { duration: 2000 }
-        NumberAnimation {
-                id:opacityDownAnimation
-                target: noteItem
-                property: "opacity"
-                to: displayingState === d.normalVisibleState ? 1.0: 0
-                from: displayingState === d.normalVisibleState ? 0: 1.0
-                duration: 300
-                easing {type: Easing.OutCubic}
-           }
+    property var normalNoteClickedAnimation:NormalNoteClickedAnimation
+    {
+        loops:1
+        opacityUpFrom:displayingState === d.normalVisibleState ? 1.0: 0
+        opacityUpTo:displayingState === d.normalVisibleState ? 0: 1.0
+        opacityDownFrom:displayingState === d.normalVisibleState ? 0: 1.0
+        opacityDownTo:displayingState === d.normalVisibleState ? 1.0: 0
+        upDuration:300
+        downDuration:300
+        pauseDuration:500
+        running:false
+        animationTarget:noteItem
     }
 
-    SequentialAnimation {
-        id: sequentialRightWrongNoteAnimation
-        loops: 1
-        running: false
-
-        NumberAnimation {
-            id: radiusUpAnimation
-            target: noteItem
-            property: "normalLabelRadius"
-            from: normalLabelRadius
-            to: normalLabelRadius + 1
-            duration: 30
-            easing {type: Easing.OutCubic}
-        }
-        NumberAnimation {
-            id:radiusDownAnimation
-            target: noteItem
-            property: "normalLabelRadius"
-            to: normalLabelRadius
-            from: normalLabelRadius + 1
-            duration: 500
-            easing {type: Easing.OutCubic}
-        }
-        PauseAnimation { duration: 2000 }
-        NumberAnimation {
-            id:wrongNotePpacityDownAnimation
-            target: noteItem
-            property: "opacity"
-            to: 0
-            from: 1
-            duration: 1000
-            easing {type: Easing.OutCubic}
-       }
-
+    property var trainingModeNodeAnimation:TrainingModeNoteAnimation
+    {
+        radius:normalLabelRadius
+        running:false
+        animationTarget:noteItem
         onStarted: {console.debug("WrongRight animation started")}
         onStopped:
         {
@@ -111,39 +81,13 @@ Item {
             anchors.fill: parent
             onPressed: {
                 noteItem.notePressed(noteItem.octave, noteItem.name)
-                sequentialNormalNoteAnimation.running = true;
+                normalNoteClickedAnimation.running = true;
             }
         }
     }
 
     onDisplayingStateChanged: noteCanvas.requestPaint()
-
     onOpacityChanged:noteCanvas.requestPaint()
     onNormalLabelRadiusChanged:noteCanvas.requestPaint()
-
-    function displayNonLabeled()
-    {
-        displayingState = d.nonlabeledState;
-        noteItem.opacity = 1.0;
-        noteCanvas.requestPaint();
-    }
-
-    function setVisible(isVisible)
-    {
-        displayingState = isVisible ? d.normalVisibleState : d.normalInvisibleState;
-        noteItem.opacity = isVisible ? 1.0:0.0;
-    }
-
-    function displayNonLabeledNoteAsWrong()
-    {
-       displayingState = d.wrongState;
-       sequentialRightWrongNoteAnimation.running = true
-    }
-
-    function displayNonLabeledNoteAsRight()
-    {
-        displayingState = d.rightState;
-        sequentialRightWrongNoteAnimation.running = true
-    }
 }
 

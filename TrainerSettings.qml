@@ -18,10 +18,6 @@ Window {
     title: "Settings"
     id:settingsWindowId
 
-    property var fretSettings:{
-        "isMuted":false
-    }
-
     flags: Qt.Popup | Qt.Tool
 
     GridLayout {

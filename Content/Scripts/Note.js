@@ -67,3 +67,28 @@ function getBackgroundColor()
     }
     return color;
 }
+
+function displayNonLabeled()
+{
+    displayingState = d.nonlabeledState;
+    noteItem.opacity = 1.0;
+    noteCanvas.requestPaint();
+}
+
+function setVisible(isVisible)
+{
+    displayingState = isVisible ? d.normalVisibleState : d.normalInvisibleState;
+    noteItem.opacity = isVisible ? 1.0:0.0;
+}
+
+function displayNonLabeledNoteAsWrong()
+{
+   displayingState = d.wrongState;
+   trainingModeNodeAnimation.running = true
+}
+
+function displayNonLabeledNoteAsRight()
+{
+    displayingState = d.rightState;
+    trainingModeNodeAnimation.running = true
+}

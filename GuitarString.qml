@@ -2,8 +2,16 @@ import QtQuick 2.0
 import "Content/Scripts/GuitarString.js" as GuitarJs
 Item {
     id:stringItem
+
+    QtObject {
+        id: d
+
+        property var notesNames:["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    }
+
     Rectangle
     {
+        id:debugRectangle
         anchors.fill: parent
         color:"transparent"
     }
@@ -19,7 +27,6 @@ Item {
     signal nonLabeledDisplayingStopped();
 
     property bool showNotesLabels:true
-    property var notesNames:["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
     onStringWidthChanged: guitarStringCanvas.requestPaint()
 
@@ -38,6 +45,7 @@ Item {
                 duration: 30
                 easing {type: Easing.OutCubic}
            }
+
         // Then pause for 500ms
         NumberAnimation {
                 id:stringWidthDownAnimation

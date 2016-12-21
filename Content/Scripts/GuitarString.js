@@ -37,7 +37,7 @@ function createNotes(height, fretThickness)
     var octaveCounter = stringItem.stringInitialNoteOctave;
     var fd = fretDistances;
     var l = notes.length;
-    for (var i = 0, nameIndex = notesNames.indexOf(initialNote); i < notesNumber - 1 ; ++i, ++nameIndex)
+    for (var i = 0, nameIndex = d.notesNames.indexOf(initialNote); i < notesNumber - 1 ; ++i, ++nameIndex)
     {
         var settings = {
             "x": fretDistances[i] + fretThickness/2,
@@ -45,7 +45,7 @@ function createNotes(height, fretThickness)
             "width": fretDistances[i+1] - fretDistances[i] - fretThickness,
             "height": height,
             "octave":octaveCounter,
-            "name":notesNames[nameIndex%12],
+            "name":d.notesNames[nameIndex%12],
             "normalLabelBackgroundColor":'#CCFFA500',
             "normalLabelBorderColor":'#C11B17',
             "normalLabelTextColor":"#FFFFFF"

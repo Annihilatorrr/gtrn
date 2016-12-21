@@ -7,3 +7,9 @@ function readCurrentSettings()
     console.debug("readCurrentSettings: showNotesLabels = ", showNotesLabels)
     console.debug("readCurrentSettings: fretsNumber = ", fretsNumber)
 }
+
+function updateSettings()
+{
+    FretboardPageJs.readCurrentSettings();
+    noteTrainer.onUpdateSettings(fretBoard.stringNumber, fretBoard.fretsNumber)
+}

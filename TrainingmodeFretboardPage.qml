@@ -15,6 +15,10 @@ Item
     property var notesToSelect:[]
     property var expectedNoteName
 
+    signal updateSettings();
+
+    onUpdateSettings: FretboardPageJs.updateSettings();
+
     Column
     {
         spacing: 2
@@ -114,11 +118,5 @@ Item
         {
             fretBoard.fretsNumber = fretsNumber;
         }
-    }
-
-    function updateSettings()
-    {
-        FretboardPageJs.readCurrentSettings();
-        noteTrainer.onUpdateSettings(fretBoard.stringNumber, fretBoard.fretsNumber)
     }
 }

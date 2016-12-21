@@ -59,5 +59,7 @@
         <file>Content/Icons/appicon.icns</file>
         <file>Content/Icons/appicon.ico</file>
         <file>Content/Icons/appicon.png</file>
+        <file>Animations/NormalNoteClickedAnimation.qml</file>
+        <file>Animations/TrainingModeNoteAnimation.qml</file>
     </qresource>
 </RCC>
