@@ -59,7 +59,6 @@ Item {
     signal clicked
 
     Rectangle {
-
         border.color: "#888"
         radius: 4
         anchors.margins: 5

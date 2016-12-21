@@ -55,5 +55,9 @@
         <file>FreemodeFretboardPage.qml</file>
         <file>TrainingmodeFretboardPage.qml</file>
         <file>Styles/CheckBoxWithRectangleStyle.qml</file>
+        <file>Delegates/NoteButtonsListViewDelegate.qml</file>
+        <file>Content/Icons/appicon.icns</file>
+        <file>Content/Icons/appicon.ico</file>
+        <file>Content/Icons/appicon.png</file>
     </qresource>
 </RCC>

@@ -4,6 +4,7 @@ import QtQuick.Controls 2.0
 import "Content/Scripts/FretboardPage.js" as FretboardPageJs
 import "Content/Scripts/common.js" as CommonJs
 
+import './Delegates'
 Item
 {
     id:fretboardPage
@@ -13,6 +14,7 @@ Item
     property int fretsNumber:22
     property var notesToSelect:[]
     property var expectedNoteName
+
     Column
     {
         spacing: 2
@@ -21,8 +23,8 @@ Item
         {
             width:parent.width
             height: 160
+            color:"#2F4F4F"
 
-            color:"white"
             Fretboard
             {
                 id:fretBoard
@@ -50,37 +52,34 @@ Item
                 }
             }
         }
+
         ListView {
-            id: trainingModeListView
+            id: noteButtonsListView
             height: 30
             width: 430
             interactive: false
             anchors.horizontalCenter:parent.horizontalCenter
             orientation: ListView.Horizontal
             spacing:15
-            delegate: Item {
-                id: item
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                width: 80
-                height:50
-                Button {
-                    anchors.fill: parent
-                    text: modelData
+            signal buttonClicked(var text);
+            onButtonClicked:
+            {
+                if(text === expectedNoteName)
+                {
+                    fretBoard.displayNonLabeledNoteAsRight()
+                    console.debug('right')
+                }
+                else
+                {
+                    fretBoard.displayNonLabeledNoteAsWrong()
+                    console.debug('wrong')
+                }
+            }
 
-                    onClicked: {
-
-                        if(text === expectedNoteName)
-                        {
-                            fretBoard.displayNonLabeledNoteAsRight()
-                            console.debug('right')
-                        }
-                        else
-                        {
-                            fretBoard.displayNonLabeledNoteAsWrong()
-                            console.debug('wrong')
-                        }
-                    }
+            delegate: NoteButtonsListViewDelegate {
+                Component.onCompleted:
+                {
+                    clicked.connect(noteButtonsListView.buttonClicked)
                 }
             }
 

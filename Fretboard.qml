@@ -14,15 +14,24 @@ Item {
     property bool isMuted:false
     property bool showNotesLabels:true
     property bool trainingMode:false
-    property var absoluteFretDistances:[]
+    property int edgeMargin:10
+    property int labelHeight:20
     property var strings:[]
     property var tuning:[]
-    property int currentNonLabeledNoteStringIndex
-    property int currentNonlabeledNoteFretIndex
+
+    QtObject {
+        id: d
+
+        property int currentNonLabeledNoteStringIndex
+        property int currentNonlabeledNoteFretIndex
+        property var absoluteFretDistances:[]
+    }
 
     signal notePressed(int octave, string name)
     signal nonlabeledNoteDisplayed(var noteName)
     signal nonLabeledDisplayingStopped();
+    signal displayNonLabeledNoteAsWrong();
+    signal displayNonLabeledNoteAsRight();
 
     Connections{
         target:noteTrainer
@@ -31,22 +40,22 @@ Item {
         {
             if (trainingMode)
             {
-                currentNonLabeledNoteStringIndex = stringPosition;
-                currentNonlabeledNoteFretIndex = fretPosition
-                console.debug("Note to display nonlabeled", currentNonLabeledNoteStringIndex, currentNonlabeledNoteFretIndex);
-                var displayedNoteName = strings[currentNonLabeledNoteStringIndex - 1].displayNonLabeledNote(currentNonlabeledNoteFretIndex);
+                d.currentNonLabeledNoteStringIndex = stringPosition;
+                d.currentNonlabeledNoteFretIndex = fretPosition
+                console.debug("Note to display nonlabeled", d.currentNonLabeledNoteStringIndex, d.currentNonlabeledNoteFretIndex);
+                var displayedNoteName = strings[d.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNote(d.currentNonlabeledNoteFretIndex);
                 nonlabeledNoteDisplayed(displayedNoteName);
             }
         }
     }
 
-    onNotePressed:
-    {
-        soundPlayer.onNotePressed(octave, name);
-    }
+    onNotePressed: soundPlayer.onNotePressed(octave, name);
+    onDisplayNonLabeledNoteAsWrong: strings[d.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsWrong(d.currentNonlabeledNoteFretIndex);
+    onDisplayNonLabeledNoteAsRight: strings[d.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsRight(d.currentNonlabeledNoteFretIndex);
 
     Rectangle {
         id:fretRect
+
         anchors.fill: parent
         color:parent.backgroundColor
         border.width: 0
@@ -78,15 +87,5 @@ Item {
                 }
             }
         }
-    }
-
-    function displayNonLabeledNoteAsWrong()
-    {
-        strings[currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsWrong(currentNonlabeledNoteFretIndex);
-    }
-
-    function displayNonLabeledNoteAsRight()
-    {
-        strings[currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsRight(currentNonlabeledNoteFretIndex);
     }
 }

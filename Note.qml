@@ -3,6 +3,8 @@ import QtQuick.Controls 2.0
 
 import "Content/Scripts/Note.js" as NoteJs
 Item {
+    id:noteItem
+
     QtObject {
             id: d
             readonly property int normalVisibleState:0
@@ -11,7 +13,7 @@ Item {
             readonly property int rightState:3
             readonly property int wrongState:4
         }
-    id:noteItem
+
 
     property color wrongNoteBackgroundColor:"red"
     property color rightNoteBackgroundColor:"green"

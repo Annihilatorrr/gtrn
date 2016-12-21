@@ -19,3 +19,5 @@ HEADERS += \
     soundplayer.h \
     settingshelper.h \
     notetrainer.h
+
+RC_ICONS = ./Content/Icons/appicon.ico

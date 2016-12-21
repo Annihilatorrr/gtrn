@@ -89,7 +89,7 @@ Window {
             Layout.row:2
             Layout.columnSpan: 1
             Layout.preferredHeight: 15
-            text: Qt.binding(function() { return fretsNumberSliderId.value; })
+            text: fretsNumberSliderId.value
         }
 
         Slider {

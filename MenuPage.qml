@@ -5,6 +5,7 @@ Item {
 
     width: parent.width
     height: parent.height
+
     property alias stackView:stackView
 
     StackView {
@@ -34,9 +35,10 @@ Item {
                 id:itemsGrid
                 interactive: false
                 focus: true
+                width:200
+                height:100
                 model: pageModel
-                anchors.fill: parent
-
+                anchors.centerIn: parent
                 delegate: MainMenuItemDelegate {
                     text: title
                     onClicked: stackView.push(Qt.resolvedUrl(page))

@@ -11,6 +11,10 @@ Item
     property bool showNotesLabels:true
     property int fretsNumber:22
 
+    signal updateSettings();
+
+    onUpdateSettings:FretboardPageJs.readCurrentSettings()
+
     ColumnLayout
     {
         spacing: 22
@@ -37,9 +41,9 @@ Item
         }
         Rectangle
         {
-            color: "blue"
             Layout.fillWidth: true
             Layout.fillHeight: true
+            color: "blue"
         }
     }
     Component.onCompleted:
@@ -62,10 +66,5 @@ Item
         {
             fretBoard.fretsNumber = fretsNumber;
         }
-    }
-
-    function updateSettings()
-    {
-        FretboardPageJs.readCurrentSettings();
     }
 }

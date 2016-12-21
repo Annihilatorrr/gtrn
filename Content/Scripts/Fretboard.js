@@ -21,11 +21,11 @@ function calculateFretDistances()
     var canvasWidth = width;
     var fretBeginning = 25;
     var stretchCoefficient = (canvasWidth - 50)/Math.ceil(canvasWidth - (canvasWidth / Math.pow(2,(24/12.0))));
-    absoluteFretDistances[0] = 0;
+    d.absoluteFretDistances[0] = 0;
     for (var i = 0; i <= fretsNumber; ++i)
     {
         var distanceFromFirstFret = Math.ceil(canvasWidth - (canvasWidth / chromaticMultipliers[i]))*stretchCoefficient
-        absoluteFretDistances[i+1] = fretBeginning + distanceFromFirstFret;
+        d.absoluteFretDistances[i+1] = fretBeginning + distanceFromFirstFret;
     }
 }
 
@@ -33,8 +33,8 @@ function onStringPicked(octave, name)
 {
     if (!isMuted)
     {
-        console.debug("Sounds", octave, name);
         notePressed(octave, name);
+        console.debug("Sounds", octave, name);
     }
     else
     {
@@ -45,9 +45,7 @@ function onStringPicked(octave, name)
 function createStrings(stringNumber, parent)
 {
     console.debug("Creating strings", (!trainingMode && showNotesLabels) ? "with" : "without", "labels")
-    var edgeMargin = 10;
 
-    var labelHeight = 20;
     var spaceBetweenStrings = (height - edgeMargin*2)/(stringNumber - 1)
 
     for (var i = 0; i < stringNumber; ++i)
@@ -55,7 +53,7 @@ function createStrings(stringNumber, parent)
         var component = Qt.createComponent("qrc:/GuitarString.qml");
         var stringInitialNoteOctave = tuning[i].slice(-1);
         var initialNote = tuning[i].slice(0, -1);
-        var fretDistancesToDisplay = absoluteFretDistances.slice(0, fretsNumber + 2)
+        var fretDistancesToDisplay = d.absoluteFretDistances.slice(0, fretsNumber + 2)
         var settings = {
             "x": 0,
             "y": edgeMargin + i*spaceBetweenStrings - labelHeight/2,
@@ -112,7 +110,7 @@ function drawFretboard(canvas) {
     // first fret
     ctx.beginPath();
     ctx.fillStyle = createGradientForFirstFret(ctx);
-    ctx.fillRect(absoluteFretDistances[1], 0, 10, height);
+    ctx.fillRect(d.absoluteFretDistances[1], 0, 10, height);
 
     ctx.fillStyle = fretMarkerColor;
     ctx.lineWidth = fretThickness;
@@ -122,8 +120,8 @@ function drawFretboard(canvas) {
     for (var i = 2; i <= fretsNumber + 1; ++i)
     {
         ctx.beginPath();
-        ctx.moveTo(absoluteFretDistances[i], 0);
-        ctx.lineTo(absoluteFretDistances[i],height);
+        ctx.moveTo(d.absoluteFretDistances[i], 0);
+        ctx.lineTo(d.absoluteFretDistances[i], height);
         ctx.stroke();
 
         switch(i)
@@ -136,12 +134,12 @@ function drawFretboard(canvas) {
         case 17:
         case 19:
         case 21:
-            drawFilledCircle((absoluteFretDistances[i]+absoluteFretDistances[i+1])/2, height/2, 8, ctx)
+            drawFilledCircle((d.absoluteFretDistances[i] + d.absoluteFretDistances[i+1])/2, height>>1, 8, ctx)
             break;
         case 12:
         case 24:
-            drawFilledCircle((absoluteFretDistances[i]+absoluteFretDistances[i+1])/2, height/3, 8, ctx)
-            drawFilledCircle((absoluteFretDistances[i]+absoluteFretDistances[i+1])/2, 2*height/3, 8, ctx)
+            drawFilledCircle((d.absoluteFretDistances[i] + d.absoluteFretDistances[i+1])/2, height/3, 8, ctx)
+            drawFilledCircle((d.absoluteFretDistances[i] + d.absoluteFretDistances[i+1])/2, (height/3) << 1, 8, ctx)
         }
     }
 
