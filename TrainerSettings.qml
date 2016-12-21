@@ -85,28 +85,21 @@ Window {
             Layout.row:2
             Layout.columnSpan: 1
             Layout.preferredHeight: 15
-            text: fretsNumberSliderId.value
+            text: Math.floor(fretsNumberSliderId.value)
         }
 
         Slider {
             id: fretsNumberSliderId
+            property real fretsNumber: value
+            Layout.fillWidth: true
             Layout.preferredHeight: 35
             Layout.row:2
             Layout.column: 4
-            Layout.columnSpan: 3
+            Layout.columnSpan: 4
             value: 22
             minimumValue: 1
             maximumValue: 24
-        }
-
-        Rectangle {
-            Layout.column: 7
-            Layout.row:2
-            Layout.columnSpan: 1
-            Layout.fillWidth: true
-            Layout.preferredHeight: 20
-            color:"#ff8000"
-        }
+         }
 
         Rectangle {
             Layout.column: 0

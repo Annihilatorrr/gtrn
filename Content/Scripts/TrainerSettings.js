@@ -2,7 +2,7 @@ function readCurrentSettings()
 {
     isMutedId.checked = settingsHelper.getBoolValue("isMuted", settingsWindowId.isMuted);
     showNotesLabelsId.checked = settingsHelper.getBoolValue("showNotesLabels", settingsWindowId.showNotesLabels);
-    fretsNumberId.text = settingsHelper.getIntValue("fretsNumber", settingsWindowId.fretsNumber);
+    fretsNumberSliderId.value = settingsHelper.getIntValue("fretsNumber", settingsWindowId.fretsNumber);
 }
 
 function writeCurrentSettings()
