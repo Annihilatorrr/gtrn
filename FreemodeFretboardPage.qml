@@ -9,7 +9,7 @@ Item
 
     property bool isMuted:false
     property bool showNotesLabels:true
-    property int fretsNumber:22
+    property int activeFretsNumber:22
 
     signal updateSettings();
 
@@ -36,7 +36,7 @@ Item
                 width:1100
                 height:150
                 backgroundColor: "#2B1B17"
-                fretsNumber:22
+                activeFretsNumber:22
                 tuning:["E4", "B3", "G3", "D3", "A2", "E2"]
             }
         }
@@ -64,9 +64,9 @@ Item
         {
             fretBoard.showNotesLabels = showNotesLabels;
         }
-        onFretsNumberChanged:
+        onActiveFretsNumberChanged:
         {
-            fretBoard.fretsNumber = fretsNumber;
+            fretBoard.activeFretsNumber = activeFretsNumber;
         }
     }
 }

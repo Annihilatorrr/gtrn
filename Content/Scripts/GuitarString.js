@@ -50,8 +50,10 @@ function createNotes(height, fretThickness)
         "normalLabelTextColor":"#FFFFFF"
     };
 
-    createNote(openStringSettings)
-
+    notes[0] = createNote(openStringSettings);
+    connectSignalToSlots(notes[0]);
+    notes[0].showLabels(showNotesLabels);
+    notes[0].displayActive(true);
     for (var i = 0, nameIndex = d.notesNames.indexOf(initialNote) + 1; i < notesNumber - 1 ; ++i, ++nameIndex)
     {
         var settings = {
@@ -71,12 +73,16 @@ function createNotes(height, fretThickness)
             ++octaveCounter;
         }
 
-        createNote(settings)
+        notes[i+1] = createNote(settings);
+        connectSignalToSlots(notes[i+1]);
+        notes[i+1].showLabels(showNotesLabels);
+        notes[i+1].displayActive(i < activeFretsNumber);
     }
 }
 
 function createNote(settings)
 {
+    var note;
     var component = Qt.createComponent("qrc:/Note.qml");
     if( component.status !== Component.Ready )
     {
@@ -85,17 +91,15 @@ function createNote(settings)
     }
     else
     {
-        var i = notes.length;
-        notes[i] = component.createObject(stringItem,settings);
-        notes[i].notePressed.connect(notePressed);
-        notes[i].nonLabeledDisplayingStopped.connect(nonLabeledDisplayingStopped);
-        //notes[i].notePressed.connect(onNotePressed);
-        notes[i].showLabels(showNotesLabels);
+        note = component.createObject(stringItem,settings);
     }
+    return note;
 }
 
-function clear(context)
+function connectSignalToSlots(note)
 {
-    context.clearRect(0, 0, width, height);
+    note.notePressed.connect(notePressed);
+    note.nonLabeledDisplayingStopped.connect(nonLabeledDisplayingStopped);
+    //notes[i].notePressed.connect(onNotePressed);
 }
 

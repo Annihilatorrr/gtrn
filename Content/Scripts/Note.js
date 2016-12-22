@@ -35,6 +35,7 @@ function getRadius()
     {
     case d.normalVisibleState:
     case d.normalInvisibleState:
+    case d.inactiveState:
         radius = normalLabelRadius;
         break;
     case d.nonlabeledState:
@@ -68,6 +69,9 @@ function getBackgroundColor()
     case d.wrongState:
         color = wrongNoteBackgroundColor;
         break;
+    case d.inactiveState:
+        color = "grey";
+        break;
     }
     return color;
 }
@@ -83,6 +87,11 @@ function showLabels(show)
 {
     displayingState = show ? d.normalVisibleState : d.normalInvisibleState;
     noteItem.opacity = show ? 1.0:0.0;
+}
+
+function setActive(isActive)
+{
+    displayingState = isActive ? d.normalVisibleState : d.inactiveState;
 }
 
 function displayNonLabeledNoteAsWrong()

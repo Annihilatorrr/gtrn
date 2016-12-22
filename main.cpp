@@ -10,6 +10,14 @@ int main(int argc, char *argv[])
 {
     qsrand(QTime::currentTime().msec());
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+    QStringList paths = QCoreApplication::libraryPaths();
+    paths.append(".");
+    paths.append("imageformats");
+    paths.append("platforms");
+
+    QCoreApplication::setLibraryPaths(paths);
+
     QGuiApplication app(argc, argv);
     app.setOrganizationName("oleumsoft");
     app.setOrganizationDomain("oleumsoft.com");

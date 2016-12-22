@@ -9,6 +9,7 @@ SOURCES += main.cpp \
 
 RESOURCES += qml.qrc
 
+QT_LOGGING_RULES=qml=false
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML2_IMPORT_PATH += ./SettingsProvider
 

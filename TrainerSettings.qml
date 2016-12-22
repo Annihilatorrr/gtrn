@@ -45,7 +45,7 @@ Window {
             Layout.columnSpan: 7
             Layout.fillWidth: true
             Layout.preferredHeight: 20
-            color:"#ff8000"
+            color:"transparent"
         }
 
         CheckBox {
@@ -65,7 +65,7 @@ Window {
             Layout.columnSpan: 6
             Layout.fillWidth: true
             Layout.preferredHeight: 20
-            color:"#ff8000"
+            color:"transparent"
         }
 
         Label {
@@ -78,19 +78,19 @@ Window {
         }
 
         Label {
-            id: fretsNumberId
+            id: activeFretsNumberId
             Layout.preferredWidth:15
             Layout.fillWidth: false
             Layout.column: 3
             Layout.row:2
             Layout.columnSpan: 1
             Layout.preferredHeight: 15
-            text: Math.floor(fretsNumberSliderId.value)
+            text: Math.floor(activeFretsNumberSliderId.value)
         }
 
         Slider {
-            id: fretsNumberSliderId
-            property real fretsNumber: value
+            id: activeFretsNumberSliderId
+            property real activeFretsNumber: value
             Layout.fillWidth: true
             Layout.preferredHeight: 35
             Layout.row:2
@@ -107,7 +107,7 @@ Window {
             Layout.columnSpan: 8
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color:"#ff8000"
+            color:"transparent"
         }
     }
 

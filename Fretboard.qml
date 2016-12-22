@@ -8,7 +8,7 @@ Item {
 
     property color backgroundColor:"#D2691E"
     property color fretMarkerColor: "#ffffff"
-    property int fretsNumber:22
+    property int activeFretsNumber:22
     property int stringNumber:tuning.length
     property int fretThickness:3
     property bool isMuted:false
@@ -81,7 +81,7 @@ Item {
             Connections
             {
                 target:fretBoardItem
-                onFretsNumberChanged:{
+                onActiveFretsNumberChanged:{
                     FretboardJs.calculateFretDistances();
                     FretboardJs.createStrings(stringNumber, fretRect)
                     fredboardCanvas.requestPaint();

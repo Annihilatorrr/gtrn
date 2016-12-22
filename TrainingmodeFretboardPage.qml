@@ -11,7 +11,7 @@ Item
 
     property bool isMuted:false
     property bool showNotesLabels:true
-    property int fretsNumber:22
+    property int activeFretsNumber:22
     property var notesToSelect:[]
     property var expectedNoteName
 
@@ -39,7 +39,7 @@ Item
                 trainingMode: true
                 height:150
                 backgroundColor: "#2B1B17"
-                fretsNumber:22
+                activeFretsNumber:22
                 tuning:["E4", "B3", "G3", "D3", "A2", "E2"]
 
                 onNonlabeledNoteDisplayed:
@@ -100,7 +100,7 @@ Item
     Component.onCompleted:
     {
         FretboardPageJs.readCurrentSettings();
-        noteTrainer.onStartTraining(fretBoard.stringNumber, fretBoard.fretsNumber);
+        noteTrainer.onStartTraining(fretBoard.stringNumber, fretBoard.activeFretsNumber);
     }
 
     Component.onDestruction:
@@ -119,9 +119,9 @@ Item
         {
             fretBoard.showNotesLabels = showNotesLabels;
         }
-        onFretsNumberChanged:
+        onActiveFretsNumberChanged:
         {
-            fretBoard.fretsNumber = fretsNumber;
+            fretBoard.activeFretsNumber = activeFretsNumber;
         }
     }
 }

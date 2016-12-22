@@ -66,6 +66,7 @@ function createStrings(stringNumber, parent)
             "stringWidth":i,
             "visible":true,
             "fretDistances": fretDistancesToDisplay,
+            "activeFretsNumber":activeFretsNumber,
             "initialNote":initialNote,
             "stringInitialNoteOctave":stringInitialNoteOctave
         };
@@ -133,25 +134,30 @@ function drawFretboard(canvas) {
 
         switch(i)
         {
-        case 3:
-        case 7:
-        case 5:
-        case 9:
-        case 15:
-        case 17:
-        case 19:
-        case 21:
+        case 2:
+        case 4:
+        case 6:
+        case 8:
+        case 14:
+        case 16:
+        case 18:
+        case 20:
             drawFilledCircle((d.absoluteFretDistances[i] + d.absoluteFretDistances[i+1])/2, height>>1, 8, ctx)
             break;
-        case 12:
-        case 24:
+        case 11:
+        case 23:
             drawFilledCircle((d.absoluteFretDistances[i] + d.absoluteFretDistances[i+1])/2, height/3, 8, ctx)
             drawFilledCircle((d.absoluteFretDistances[i] + d.absoluteFretDistances[i+1])/2, (height/3) << 1, 8, ctx)
         }
     }
 
-    ctx.fillStyle = "#800000ff";
-    ctx.fillRect(d.absoluteFretDistances[fretsNumber+1], 0, d.absoluteFretDistances[maxFretsNumber+1] - d.absoluteFretDistances[fretsNumber+1], height);
+    ctx.fillStyle = "#80ffffff";
+
+    var x1 = d.absoluteFretDistances[activeFretsNumber];
+    var x2 = d.absoluteFretDistances[maxFretsNumber];
+    var notUserFretsRectangleWidth = x2 - x1;
+    console.debug("Filling rect of not used frets", x1, 0, width - x1, height);
+    ctx.fillRect(x1, 0, width - x1, height);
     ctx.restore();
 
 }

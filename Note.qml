@@ -14,6 +14,7 @@ Item {
             readonly property int nonlabeledState:2
             readonly property int rightState:3
             readonly property int wrongState:4
+            readonly property int inactiveState:5
         }
 
 
@@ -27,16 +28,19 @@ Item {
     property color normalLabelTextColor
     property bool canAskForNewNote:false
     property int displayingState:d.normalVisibleState
+    property bool isActive:true
 
     signal notePressed(int octave, string name)
     signal nonLabeledDisplayingStopped();
     signal displayNonLabeled();
+    signal displayActive(bool isActive)
     signal showLabels(bool isVisible);
     signal displayNonLabeledNoteAsWrong();
     signal displayNonLabeledNoteAsRight();
 
     onDisplayNonLabeled:NoteJs.displayNonLabeled();
     onShowLabels:NoteJs.showLabels(isVisible)
+    onDisplayActive:NoteJs.setActive(isActive)
     onDisplayNonLabeledNoteAsWrong:NoteJs.displayNonLabeledNoteAsWrong();
     onDisplayNonLabeledNoteAsRight:NoteJs.displayNonLabeledNoteAsRight();
 

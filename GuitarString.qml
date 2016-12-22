@@ -21,6 +21,7 @@ Item {
 
     property int fretThickness
     property int stringWidth:3
+    property int activeFretsNumber
     property var notes:[]
 
     signal notePressed(int octave, string name)
