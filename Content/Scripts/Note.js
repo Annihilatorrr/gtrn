@@ -7,6 +7,8 @@ function drawLabel(canvas)
 
 function drawMainLabel(context)
 {
+    context.save()
+
     var centreX = width / 2;
     var centreY = height / 2;
 
@@ -22,6 +24,8 @@ function drawMainLabel(context)
 
     context.lineWidth = 1;
     context.fillText(displayingState == d.nonlabeledState ? "?":name, centreX, centreY + 2);
+
+    context.restore();
 }
 
 function getRadius()
@@ -56,7 +60,7 @@ function getBackgroundColor()
         color = normalLabelBackgroundColor;
         break;
     case d.nonlabeledState:
-        color = "#ee82ee";
+        color = "#FF00FF";
         break;
     case d.rightState:
         color = rightNoteBackgroundColor;
@@ -75,10 +79,10 @@ function displayNonLabeled()
     noteCanvas.requestPaint();
 }
 
-function setVisible(isVisible)
+function showLabels(show)
 {
-    displayingState = isVisible ? d.normalVisibleState : d.normalInvisibleState;
-    noteItem.opacity = isVisible ? 1.0:0.0;
+    displayingState = show ? d.normalVisibleState : d.normalInvisibleState;
+    noteItem.opacity = show ? 1.0:0.0;
 }
 
 function displayNonLabeledNoteAsWrong()

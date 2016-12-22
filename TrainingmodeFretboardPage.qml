@@ -103,6 +103,11 @@ Item
         noteTrainer.onStartTraining(fretBoard.stringNumber, fretBoard.fretsNumber);
     }
 
+    Component.onDestruction:
+    {
+       //noteTrainer.onStopTraining();
+    }
+
     Connections
     {
         target: fretboardPage

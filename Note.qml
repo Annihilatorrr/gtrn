@@ -31,12 +31,12 @@ Item {
     signal notePressed(int octave, string name)
     signal nonLabeledDisplayingStopped();
     signal displayNonLabeled();
-    signal setVisible(bool isVisible);
+    signal showLabels(bool isVisible);
     signal displayNonLabeledNoteAsWrong();
     signal displayNonLabeledNoteAsRight();
 
     onDisplayNonLabeled:NoteJs.displayNonLabeled();
-    onSetVisible:NoteJs.setVisible(isVisible)
+    onShowLabels:NoteJs.showLabels(isVisible)
     onDisplayNonLabeledNoteAsWrong:NoteJs.displayNonLabeledNoteAsWrong();
     onDisplayNonLabeledNoteAsRight:NoteJs.displayNonLabeledNoteAsRight();
 

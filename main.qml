@@ -23,13 +23,15 @@ ApplicationWindow
     property alias menuPage:menuPage
 
     toolBar:ToolBar {
-        height:50
+        height:48
         RowLayout {
             anchors.fill: parent
             ToolButton {
-                height:48
-                width:48
-                iconSource: "/Content/Icons/toolbar_settings.png"
+                Image {
+                    source: "qrc:/Content/Icons/toolbar_settings.png"
+                    anchors.fill: parent
+                }
+
                 onClicked:{
                     settingsWindow.visible === false
                            ? settingsWindow.show()
@@ -38,32 +40,19 @@ ApplicationWindow
             }
             ToolButton {
                 iconSource: "open.png"
+
             }
             ToolButton {
                 iconSource: "save-as.png"
             }
             Item { Layout.fillWidth: true }
-            CheckBox {
-                text: "Enabled"
-                checked: true
-                Layout.alignment: Qt.AlignRight
+
+        }
+        style: ToolBarStyle {
+            padding {
+                left: 10
+                right: 10
             }
-                }
-            style: ToolBarStyle {
-                padding {
-                    left: 18
-                    right: 8
-                    top: 3
-                    bottom: 3
-                }
-                background: Rectangle {
-                   anchors.fill: parent
-                    border.color: "#aaf999"
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: "#fff" }
-                        GradientStop { position: 1 ; color: "#eee" }
-                    }
-                }
         }
     }
     MenuPage

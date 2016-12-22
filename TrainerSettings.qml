@@ -17,7 +17,7 @@ Window {
     //color: "#215400"
     title: "Settings"
     id:settingsWindowId
-
+    modality: Qt.ApplicationModal
     flags: Qt.Popup | Qt.Tool
 
     GridLayout {
@@ -109,7 +109,6 @@ Window {
             Layout.fillHeight: true
             color:"#ff8000"
         }
-
     }
 
     onClosing: {

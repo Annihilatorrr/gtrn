@@ -49,6 +49,11 @@ Item {
         }
     }
 
+    Component.onDestruction:
+    {
+
+    }
+
     onNotePressed: soundPlayer.onNotePressed(octave, name);
     onDisplayNonLabeledNoteAsWrong: strings[d.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsWrong(d.currentNonlabeledNoteFretIndex);
     onDisplayNonLabeledNoteAsRight: strings[d.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsRight(d.currentNonlabeledNoteFretIndex);

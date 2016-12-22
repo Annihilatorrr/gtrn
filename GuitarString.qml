@@ -9,12 +9,12 @@ Item {
         property var notesNames:["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     }
 
-    Rectangle
-    {
-        id:debugRectangle
-        anchors.fill: parent
-        color:"transparent"
-    }
+//    Rectangle
+//    {
+//        id:debugRectangle
+//        anchors.fill: parent
+//        color:"orange"
+//    }
     property var fretDistances:[]
     property string initialNote:"E"
     property int stringInitialNoteOctave:1
@@ -69,9 +69,9 @@ Item {
     onShowNotesLabelsChanged:
     {
         var notesNumber = fretDistances.length
-        for (var i = 0; i < notesNumber - 1 ; ++i)
+        for (var i = 0; i < notesNumber ; ++i)
         {
-            notes[i].setVisible(showNotesLabels);
+            notes[i].showLabels(showNotesLabels);
         }
         guitarStringCanvas.requestPaint()
     }

@@ -23,7 +23,7 @@ SequentialAnimation {
             to: opacityUpTo
             duration: upDuration
             easing {type: Easing.OutCubic}
-       }
+    }
     PauseAnimation { duration: pauseDuration }
     NumberAnimation {
             id:opacityDownAnimation
@@ -33,5 +33,5 @@ SequentialAnimation {
             from: opacityDownFrom
             duration: downDuration
             easing {type: Easing.OutCubic}
-       }
+    }
 }

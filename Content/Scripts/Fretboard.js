@@ -1,4 +1,7 @@
-var chromaticMultipliers = [1.0, 1.05946, 1.122462, 1.189207, 1.259921, 1.334839, 1.414213, 1.498307, 1.587401, 1.681792, 1.781797, 1.887748, 2.0,
+var maxFretsNumber = 24
+var widthAfter24thFret = 30;
+
+var chromaticMultipliers = [1.05946, 1.122462, 1.189207, 1.259921, 1.334839, 1.414213, 1.498307, 1.587401, 1.681792, 1.781797, 1.887748, 2.0,
                             2.118926, 2.244924, 2.378414, 2.519842, 2.669679, 2.828427, 2.996614, 3.174802, 3.363585, 3.563594, 3.775497, 4];
 
 function createComponentFromQmlFile(fileName)
@@ -19,13 +22,13 @@ function createComponentFromQmlFile(fileName)
 function calculateFretDistances()
 {
     var canvasWidth = width;
-    var fretBeginning = 25;
+    var fretboardBeginning = widthAfter24thFret;
     var stretchCoefficient = (canvasWidth - 50)/Math.ceil(canvasWidth - (canvasWidth / Math.pow(2,(24/12.0))));
-    d.absoluteFretDistances[0] = 0;
-    for (var i = 0; i <= fretsNumber; ++i)
+    d.absoluteFretDistances[0] = fretboardBeginning;
+    for (var i = 1; i <= maxFretsNumber; ++i)
     {
-        var distanceFromFirstFret = Math.ceil(canvasWidth - (canvasWidth / chromaticMultipliers[i]))*stretchCoefficient
-        d.absoluteFretDistances[i+1] = fretBeginning + distanceFromFirstFret;
+        var distanceFromZeroFret = Math.ceil(canvasWidth - (canvasWidth / chromaticMultipliers[i-1]))*stretchCoefficient
+        d.absoluteFretDistances[i] = fretboardBeginning + distanceFromZeroFret;
     }
 }
 
@@ -53,7 +56,7 @@ function createStrings(stringNumber, parent)
         var component = Qt.createComponent("qrc:/GuitarString.qml");
         var stringInitialNoteOctave = tuning[i].slice(-1);
         var initialNote = tuning[i].slice(0, -1);
-        var fretDistancesToDisplay = d.absoluteFretDistances.slice(0, fretsNumber + 2)
+        var fretDistancesToDisplay = d.absoluteFretDistances.slice(0, maxFretsNumber + 2)
         var settings = {
             "x": 0,
             "y": edgeMargin + i*spaceBetweenStrings - labelHeight/2,
@@ -105,22 +108,26 @@ function createGradientForFirstFret(context)
 function drawFretboard(canvas) {
     console.debug("Drawing fretboard");
     var ctx = canvas.getContext('2d');
+
+    ctx.save();
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // first fret
     ctx.beginPath();
     ctx.fillStyle = createGradientForFirstFret(ctx);
-    ctx.fillRect(d.absoluteFretDistances[1], 0, 10, height);
-
+    ctx.fillRect(d.absoluteFretDistances[0], 0, 10, height);
+    console.debug("Draing fret at", d.absoluteFretDistances[0]);
     ctx.fillStyle = fretMarkerColor;
     ctx.lineWidth = fretThickness;
     ctx.strokeStyle = createGradientForFret(ctx);
 
-    console.debug("Drawing ", fretsNumber, " frets")
-    for (var i = 2; i <= fretsNumber + 1; ++i)
+    console.debug("Drawing ", maxFretsNumber, " frets")
+    for (var i = 1; i <= maxFretsNumber; ++i)
     {
         ctx.beginPath();
         ctx.moveTo(d.absoluteFretDistances[i], 0);
+        console.debug("Draing fret at", d.absoluteFretDistances[i]);
         ctx.lineTo(d.absoluteFretDistances[i], height);
         ctx.stroke();
 
@@ -142,6 +149,10 @@ function drawFretboard(canvas) {
             drawFilledCircle((d.absoluteFretDistances[i] + d.absoluteFretDistances[i+1])/2, (height/3) << 1, 8, ctx)
         }
     }
+
+    ctx.fillStyle = "#800000ff";
+    ctx.fillRect(d.absoluteFretDistances[fretsNumber+1], 0, d.absoluteFretDistances[maxFretsNumber+1] - d.absoluteFretDistances[fretsNumber+1], height);
+    ctx.restore();
 
 }
 

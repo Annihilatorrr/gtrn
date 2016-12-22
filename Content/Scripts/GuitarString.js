@@ -37,7 +37,22 @@ function createNotes(height, fretThickness)
     var octaveCounter = stringItem.stringInitialNoteOctave;
     var fd = fretDistances;
     var l = notes.length;
-    for (var i = 0, nameIndex = d.notesNames.indexOf(initialNote); i < notesNumber - 1 ; ++i, ++nameIndex)
+
+    var openStringSettings = {
+        "x": 0,
+        "y": 0,
+        "width": 20,
+        "height": height,
+        "octave":octaveCounter,
+        "name":d.notesNames[d.notesNames.indexOf(initialNote)],
+        "normalLabelBackgroundColor":'#CCFFA500',
+        "normalLabelBorderColor":'#C11B17',
+        "normalLabelTextColor":"#FFFFFF"
+    };
+
+    createNote(openStringSettings)
+
+    for (var i = 0, nameIndex = d.notesNames.indexOf(initialNote) + 1; i < notesNumber - 1 ; ++i, ++nameIndex)
     {
         var settings = {
             "x": fretDistances[i] + fretThickness/2,
@@ -56,21 +71,26 @@ function createNotes(height, fretThickness)
             ++octaveCounter;
         }
 
-        var component = Qt.createComponent("qrc:/Note.qml");
-        if( component.status !== Component.Ready )
-        {
-        if( component.status === Component.Error )
-                console.debug("Error:"+ component.errorString() );
-        }
-        else
-        {
+        createNote(settings)
+    }
+}
 
-            notes[i] = component.createObject(stringItem,settings);
-            notes[i].notePressed.connect(notePressed);
-            notes[i].nonLabeledDisplayingStopped.connect(nonLabeledDisplayingStopped);
-            //notes[i].notePressed.connect(onNotePressed);
-            notes[i].setVisible(showNotesLabels);
-        }
+function createNote(settings)
+{
+    var component = Qt.createComponent("qrc:/Note.qml");
+    if( component.status !== Component.Ready )
+    {
+    if( component.status === Component.Error )
+            console.debug("Error:"+ component.errorString() );
+    }
+    else
+    {
+        var i = notes.length;
+        notes[i] = component.createObject(stringItem,settings);
+        notes[i].notePressed.connect(notePressed);
+        notes[i].nonLabeledDisplayingStopped.connect(nonLabeledDisplayingStopped);
+        //notes[i].notePressed.connect(onNotePressed);
+        notes[i].showLabels(showNotesLabels);
     }
 }
 

@@ -11,5 +11,5 @@ function readCurrentSettings()
 function updateSettings()
 {
     FretboardPageJs.readCurrentSettings();
-    noteTrainer.onUpdateSettings(fretBoard.stringNumber, fretBoard.fretsNumber)
+    noteTrainer.onContinueWithNewSettings(fretBoard.stringNumber, fretBoard.fretsNumber);
 }
