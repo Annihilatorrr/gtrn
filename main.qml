@@ -47,15 +47,34 @@ ApplicationWindow
             ToolButton {
                 iconSource: "save-as.png"
             }
+
             Item { Layout.fillWidth: true }
+
+            Button
+            {
+                Layout.preferredHeight:16
+                Layout.preferredWidth:16
+                text:"-"
+                Layout.alignment: Qt.AlignTop
+                onClicked: root.showMinimized()
+            }
+
+            Button
+            {
+                text:"X"
+                Layout.preferredHeight:16
+                Layout.preferredWidth:16
+                Layout.alignment: Qt.AlignTop
+                onClicked: Qt.quit()
+            }
+
             MouseArea{
                 property variant clickPos: "1,1"
 
-                anchors.right:parent.right
-                anchors.left:parent.left
-                anchors.margins: {left:40}
-                anchors.top:parent.top
-                anchors.bottom: parent.bottom
+                anchors.fill:parent
+                anchors.leftMargin:40
+                anchors.rightMargin:40
+
 
                 onPressed: {
                     clickPos  = Qt.point(mouse.x,mouse.y)
