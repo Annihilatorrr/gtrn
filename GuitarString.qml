@@ -20,7 +20,9 @@ Item {
     property int stringInitialNoteOctave:1
 
     property int fretThickness
-    property int stringWidth:3
+    property int oscillationAmplitude:height/2
+    property int maxOscillationAmplitude:height/2
+    property int stringThickness:3
     property int activeFretsNumber
     property var notes:[]
 
@@ -29,34 +31,26 @@ Item {
 
     property bool showNotesLabels:true
 
-    onStringWidthChanged: guitarStringCanvas.requestPaint()
-
-
-    SequentialAnimation {
-        loops: 40
+    onStringThicknessChanged: guitarStringCanvas.requestPaint()
+    ParallelAnimation
+    {
+        id: stringOscillationAnimation
         running: false
-
-        id: sequentialStringWidthAnimation
-        NumberAnimation {
-                id: stringWidthUpAnimation
-                target: stringItem
-                properties: "stringWidth"
-                from: 4
-                to: 8
-                duration: 30
-                easing {type: Easing.OutCubic}
-           }
-
-        // Then pause for 500ms
-        NumberAnimation {
-                id:stringWidthDownAnimation
-                target: stringItem
-                properties: "stringWidth"
-                to: 4
-                from: 8
-                duration: 30
-                easing {type: Easing.OutCubic}
-           }
+        loops:1
+        alwaysRunToEnd:false
+        SpringAnimation
+        {
+            id: ocillationUpAnimation
+            target: stringItem
+            property: "oscillationAmplitude"
+            spring: 5;
+            from:height/2-3
+            to:height/2
+            damping: 0.0005
+            duration:5000
+            velocity:500000
+            mass:0.024
+        }
     }
 
     Canvas {
@@ -74,6 +68,12 @@ Item {
         {
             notes[i].showLabels(showNotesLabels);
         }
+        guitarStringCanvas.requestPaint()
+    }
+
+    onOscillationAmplitudeChanged:
+    {
+        //console.debug("onOscillationAmplitudeChanged", oscillationAmplitude);
         guitarStringCanvas.requestPaint()
     }
 

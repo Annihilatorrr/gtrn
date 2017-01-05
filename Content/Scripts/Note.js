@@ -1,6 +1,7 @@
 function drawLabel(canvas)
 {
     var context = canvas.getContext("2d");
+    console.log("Clearing context", 0, 0, width, height)
     context.clearRect(0, 0, width, height);
     drawMainLabel(context);
 }

@@ -47,10 +47,10 @@ Item {
     property var normalNoteClickedAnimation:NormalNoteClickedAnimation
     {
         loops:1
-        opacityUpFrom:displayingState === d.normalVisibleState ? 1.0: 0
-        opacityUpTo:displayingState === d.normalVisibleState ? 0: 1.0
-        opacityDownFrom:displayingState === d.normalVisibleState ? 0: 1.0
-        opacityDownTo:displayingState === d.normalVisibleState ? 1.0: 0
+        opacityUpFrom:(displayingState === d.normalVisibleState || displayingState === d.inactiveState) ? 1.0: 0
+        opacityUpTo:(displayingState === d.normalVisibleState || displayingState === d.inactiveState) ? 0: 1.0
+        opacityDownFrom:(displayingState === d.normalVisibleState || displayingState === d.inactiveState) ? 0: 1.0
+        opacityDownTo:(displayingState === d.normalVisibleState || displayingState === d.inactiveState) ? 1.0: 0
         upDuration:300
         downDuration:300
         pauseDuration:500
@@ -91,7 +91,11 @@ Item {
     }
 
     onDisplayingStateChanged: noteCanvas.requestPaint()
-    onOpacityChanged:noteCanvas.requestPaint()
+    onOpacityChanged:
+    {
+        noteCanvas.requestPaint()
+        console.log("opacity changed", opacity, "of", name);
+    }
     onNormalLabelRadiusChanged:noteCanvas.requestPaint()
 }
 

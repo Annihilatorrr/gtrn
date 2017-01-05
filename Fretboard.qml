@@ -75,7 +75,7 @@ Item {
 
             Component.onCompleted:{
                 FretboardJs.calculateFretDistances();
-                FretboardJs.createStrings(stringNumber, fretRect);
+                FretboardJs.createStrings("qrc:/GuitarString.qml", stringNumber, fretRect);
             }
 
             Connections
@@ -83,7 +83,7 @@ Item {
                 target:fretBoardItem
                 onActiveFretsNumberChanged:{
                     FretboardJs.calculateFretDistances();
-                    FretboardJs.createStrings(stringNumber, fretRect)
+                    FretboardJs.createStrings("qrc:/GuitarString.qml", stringNumber, fretRect)
                     fredboardCanvas.requestPaint();
                 }
                 onShowNotesLabelsChanged:

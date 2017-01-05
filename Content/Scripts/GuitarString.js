@@ -5,12 +5,16 @@ function drawString(canvas)
     var context = canvas.getContext("2d");
     context.clearRect(0, 0, width, height);
     context.strokeStyle = createGradientForString(context);
-
+    context.fillStyle = createGradientForOscillation(context);
     context.beginPath();
-    context.lineWidth = stringWidth;
+    context.lineWidth = stringThickness;
     context.moveTo(0, height/2);
     context.lineTo(width, height/2);
+    context.moveTo(fretDistances[0]+10, height/2);
+    //context.quadraticCurveTo((width - fretDistances[0]+10)/2, 20, width, height/2)
+    context.quadraticCurveTo((width - fretDistances[0]+10)/2, oscillationAmplitude, width, height/2)
     context.stroke();
+    context.fill();
 }
 
 function createGradientForString(context)
@@ -25,10 +29,26 @@ function createGradientForString(context)
     return gradient;
 }
 
+function createGradientForOscillation(context)
+{
+    var gradient = context.createLinearGradient(0,0, 0,20 )
+    context.clearRect(0, 0, width, 20);
+
+    gradient.addColorStop(0.0, "#60ffffff");
+    gradient.addColorStop(0.5, "#AAffffff");
+    gradient.addColorStop(1, "#60ffffff");
+
+    return gradient;
+}
 
 function onNotePressed()
 {
-   // sequentialStringWidthAnimation.running = true;
+   if (stringOscillationAnimation.running)
+   {
+       stringOscillationAnimation.stop();
+   }
+
+   stringOscillationAnimation.running = true;
 }
 
 function createNotes(height, fretThickness)
@@ -100,6 +120,6 @@ function connectSignalToSlots(note)
 {
     note.notePressed.connect(notePressed);
     note.nonLabeledDisplayingStopped.connect(nonLabeledDisplayingStopped);
-    //notes[i].notePressed.connect(onNotePressed);
+    //note.notePressed.connect(onNotePressed);
 }
 
