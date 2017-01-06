@@ -85,7 +85,7 @@ Item {
             anchors.fill: parent
             onPressed: {
                 noteItem.notePressed(noteItem.octave, noteItem.name)
-                normalNoteClickedAnimation.running = true;
+                normalNoteClickedAnimation.start();
             }
         }
     }

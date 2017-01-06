@@ -88,6 +88,7 @@ function showLabels(show)
 {
     displayingState = show ? d.normalVisibleState : d.normalInvisibleState;
     noteItem.opacity = show ? 1.0:0.0;
+    console.debug("settgins opactiy to", noteItem.opacity, noteItem.name)
 }
 
 function setActive(isActive)
@@ -98,11 +99,11 @@ function setActive(isActive)
 function displayNonLabeledNoteAsWrong()
 {
    displayingState = d.wrongState;
-   trainingModeNodeAnimation.running = true
+   trainingModeNodeAnimation.start();
 }
 
 function displayNonLabeledNoteAsRight()
 {
     displayingState = d.rightState;
-    trainingModeNodeAnimation.running = true
+    trainingModeNodeAnimation.start();
 }

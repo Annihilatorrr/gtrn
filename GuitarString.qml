@@ -21,7 +21,6 @@ Item {
 
     property int fretThickness
     property int oscillationAmplitude:height/2
-    property int maxOscillationAmplitude:height/2
     property int stringThickness:3
     property int activeFretsNumber
     property var notes:[]
@@ -47,7 +46,7 @@ Item {
             from:height/2-3
             to:height/2
             damping: 0.0005
-            duration:5000
+            duration:1
             velocity:500000
             mass:0.024
         }

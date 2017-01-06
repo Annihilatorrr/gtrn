@@ -12,8 +12,8 @@ void NoteTrainer::onStartTraining(int maxStringNumber, int maxFretNumber)
     m_maxFretNumber = maxFretNumber;
     m_maxStringNumber = maxStringNumber;
     m_isRunning = true;
-   QTimer::singleShot(100, [this]()
-   {
+    QTimer::singleShot(100, [this]()
+    {
         NotePosition np = getRandomNote();
         emit displayNonLabeledNote(np.stringNumber, np.fretNumber);
     });
@@ -21,8 +21,7 @@ void NoteTrainer::onStartTraining(int maxStringNumber, int maxFretNumber)
 
 void NoteTrainer::onStopTraining()
 {
-    //m_isRunning = false;
-    //qDebug("C++: NoteTrainer::onStopTraining");
+    qDebug("C++: NoteTrainer::onStopTraining");
 }
 
 void NoteTrainer::onGetNextNote()

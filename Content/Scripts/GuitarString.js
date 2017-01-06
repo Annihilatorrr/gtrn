@@ -11,7 +11,7 @@ function drawString(canvas)
     context.moveTo(0, height/2);
     context.lineTo(width, height/2);
     context.moveTo(fretDistances[0]+10, height/2);
-    //context.quadraticCurveTo((width - fretDistances[0]+10)/2, 20, width, height/2)
+
     context.quadraticCurveTo((width - fretDistances[0]+10)/2, oscillationAmplitude, width, height/2)
     context.stroke();
     context.fill();
@@ -31,7 +31,7 @@ function createGradientForString(context)
 
 function createGradientForOscillation(context)
 {
-    var gradient = context.createLinearGradient(0,0, 0,20 )
+    var gradient = context.createLinearGradient(0,0, 0,oscillationAmplitude)
     context.clearRect(0, 0, width, 20);
 
     gradient.addColorStop(0.0, "#60ffffff");
@@ -43,12 +43,14 @@ function createGradientForOscillation(context)
 
 function onNotePressed()
 {
-   if (stringOscillationAnimation.running)
-   {
-       stringOscillationAnimation.stop();
-   }
-
-   stringOscillationAnimation.running = true;
+    if (stringOscillationAnimation.running)
+    {
+        stringOscillationAnimation.restart();
+    }
+    else
+    {
+        stringOscillationAnimation.start();
+    }
 }
 
 function createNotes(height, fretThickness)
@@ -106,8 +108,10 @@ function createNote(settings)
     var component = Qt.createComponent("qrc:/Note.qml");
     if( component.status !== Component.Ready )
     {
-    if( component.status === Component.Error )
+        if( component.status === Component.Error )
+        {
             console.debug("Error:"+ component.errorString() );
+        }
     }
     else
     {
@@ -120,6 +124,6 @@ function connectSignalToSlots(note)
 {
     note.notePressed.connect(notePressed);
     note.nonLabeledDisplayingStopped.connect(nonLabeledDisplayingStopped);
-    //note.notePressed.connect(onNotePressed);
+    note.notePressed.connect(onNotePressed);
 }
 

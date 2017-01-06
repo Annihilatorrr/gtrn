@@ -83,7 +83,7 @@ function createString(componentFileName, parent, settings)
 {
     var component = Qt.createComponent(componentFileName);
     var string;
-    component.createObject(parent,settings);
+
     if (component.status === Component.Ready)
     {
         string = component.createObject(parent, settings);
@@ -132,8 +132,6 @@ function drawFretboard(canvas) {
     ctx.fillStyle = createGradientForZeroFret(ctx);
     ctx.fillRect(d.absoluteFretDistances[0], 0, 10, height);
     console.debug("Draing fret at", d.absoluteFretDistances[0]);
-
-
 
     console.debug("Drawing ", maxFretsNumber, " frets")
     drawFrets(ctx);
