@@ -1,23 +1,10 @@
+.import "common.js" as CommonJs
+
 var maxFretsNumber = 24
 var widthAfterZeroFret = 30;
 
 var chromaticMultipliers = [1.05946, 1.122462, 1.189207, 1.259921, 1.334839, 1.414213, 1.498307, 1.587401, 1.681792, 1.781797, 1.887748, 2.0,
                             2.118926, 2.244924, 2.378414, 2.519842, 2.669679, 2.828427, 2.996614, 3.174802, 3.363585, 3.563594, 3.775497, 4];
-
-function createComponentFromQmlFile(fileName)
-{
-    var component = Qt.createComponent(fileName);
-    var settingsWindow;
-    if (component.status === Component.Ready)
-    {
-        settingsWindow = component.createObject(root);
-    }
-    else
-    {
-        console.debug("Error while creating component from:", filename, ": ", component.errorString())
-    }
-    return settingsWindow;
-}
 
 function calculateFretDistances()
 {
@@ -81,17 +68,7 @@ function createStrings(componentFileName, stringNumber, parent)
 
 function createString(componentFileName, parent, settings)
 {
-    var component = Qt.createComponent(componentFileName);
-    var string;
-
-    if (component.status === Component.Ready)
-    {
-        string = component.createObject(parent, settings);
-    }
-    else
-    {
-        console.debug("Error while creating component from:", component.errorString())
-    }
+    var string = CommonJs.createObjectFromQmlFile(componentFileName, parent, settings)
     string.showNotesLabels = !trainingMode && showNotesLabels;
     string.notePressed.connect(onStringPicked);
     string.nonLabeledDisplayingStopped.connect(nonLabeledDisplayingStopped);
@@ -123,15 +100,16 @@ function createGradientForZeroFret(context)
 
 function drawFretboard(canvas) {
     console.debug("Drawing fretboard");
+
     var ctx = canvas.getContext('2d');
     ctx.save();
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // zero fret
     ctx.beginPath();
     ctx.fillStyle = createGradientForZeroFret(ctx);
     ctx.fillRect(d.absoluteFretDistances[0], 0, 10, height);
-    console.debug("Draing fret at", d.absoluteFretDistances[0]);
 
     console.debug("Drawing ", maxFretsNumber, " frets")
     drawFrets(ctx);
@@ -190,12 +168,11 @@ function drawMarkerIfNeeded(context, position)
 
 function fillNotUsedFretboardPart(context)
 {
-    context.fillStyle = "#80ffffff";
-
     var x1 = d.absoluteFretDistances[activeFretsNumber];
     var x2 = d.absoluteFretDistances[maxFretsNumber];
     var notUserFretsRectangleWidth = x2 - x1;
     console.debug("Filling rect of not used frets", x1, 0, width - x1, height);
+    context.fillStyle = "#80ffffff";
     context.fillRect(x1, 0, width - x1, height);
 }
 
@@ -208,7 +185,6 @@ function drawFrets(context)
     {
         context.beginPath();
         context.moveTo(d.absoluteFretDistances[i], 0);
-        console.debug("Draing fret at", d.absoluteFretDistances[i]);
         context.lineTo(d.absoluteFretDistances[i], height);
         context.stroke();
 

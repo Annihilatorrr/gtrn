@@ -94,7 +94,6 @@ Item {
     onOpacityChanged:
     {
         noteCanvas.requestPaint()
-        console.log("opacity changed", opacity, "of", name);
     }
     onNormalLabelRadiusChanged:noteCanvas.requestPaint()
 }

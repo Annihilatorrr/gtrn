@@ -1,14 +1,36 @@
-function createObjectFromQmlFile(fileName, settings, parentComponent)
+.import QtQml 2.2 as QtQml
+
+function createObjectFromQmlFile(fileName, parentComponent, settings)
 {
     var objectToCreate;
     var component = Qt.createComponent(fileName);
-    if (component.status === Component.Ready)
+    if (component.status === QtQml.Component.Ready)
     {
-        objectToCreate = component.createObject(parentComponent, settings);
+        objectToCreate = finishCreation(component, parentComponent, settings)
     }
     else
     {
-        console.debug("Error while creating component from:", filename, ": ", component.errorString())
+        component.statusChanged.connect(function(status)
+        {
+            if (status === QtQml.Component.Ready)
+            {
+                objectToCreate = finishCreation(component, parentComponent, settings);
+            }
+            else if (status === QtQml.Component.Error)
+            {
+                console.log("Error while creating component from:", filename, ":", component.errorString());
+            }
+        });
+    }
+    return objectToCreate;
+}
+
+function finishCreation(component, parentComponent, settings)
+{
+    var objectToCreate = component.createObject(parentComponent, settings);
+    if (objectToCreate === null)
+    {
+        console.log("Error creating object");
     }
     return objectToCreate;
 }

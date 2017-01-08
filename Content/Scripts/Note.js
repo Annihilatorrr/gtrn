@@ -1,12 +1,11 @@
 function drawLabel(canvas)
 {
     var context = canvas.getContext("2d");
-    console.log("Clearing context", 0, 0, width, height)
     context.clearRect(0, 0, width, height);
-    drawMainLabel(context);
+    drawLabelContent(context);
 }
 
-function drawMainLabel(context)
+function drawLabelContent(context)
 {
     context.save()
 
@@ -88,7 +87,6 @@ function showLabels(show)
 {
     displayingState = show ? d.normalVisibleState : d.normalInvisibleState;
     noteItem.opacity = show ? 1.0:0.0;
-    console.debug("settgins opactiy to", noteItem.opacity, noteItem.name)
 }
 
 function setActive(isActive)

@@ -31,7 +31,7 @@ Item {
     property bool showNotesLabels:true
 
     onStringThicknessChanged: guitarStringCanvas.requestPaint()
-    ParallelAnimation
+    SequentialAnimation
     {
         id: stringOscillationAnimation
         running: false
@@ -47,7 +47,7 @@ Item {
             to:height/2
             damping: 0.0005
             duration:1
-            velocity:500000
+            velocity:5000
             mass:0.024
         }
     }
@@ -72,7 +72,7 @@ Item {
 
     onOscillationAmplitudeChanged:
     {
-        //console.debug("onOscillationAmplitudeChanged", oscillationAmplitude);
+        console.debug("onOscillationAmplitudeChanged", oscillationAmplitude);
         guitarStringCanvas.requestPaint()
     }
 

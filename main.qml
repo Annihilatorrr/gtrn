@@ -5,7 +5,6 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 
 import "Content/Scripts/common.js" as CommonJs
-import "Content/Scripts/main.js" as MainJs
 
 ApplicationWindow
 {
@@ -40,15 +39,20 @@ ApplicationWindow
                            : settingsWindow.requestActivate();
                 }
             }
-            ToolButton {
-                iconSource: "open.png"
 
-            }
-            ToolButton {
-                iconSource: "save-as.png"
-            }
 
-            Item { Layout.fillWidth: true }
+            Rectangle  {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                color:"transparent"
+                Text{
+                    text:"GUITAR TRAINER"
+                    anchors.centerIn: parent
+                    font.family:"Arial"
+                    font.pixelSize: 16
+                }
+            }
 
             Button
             {
@@ -103,7 +107,7 @@ ApplicationWindow
 
     Component.onCompleted:
     {
-        settingsWindow = CommonJs.createObjectFromQmlFile("qrc:/TrainerSettings.qml", {}, null);
+        settingsWindow = CommonJs.createObjectFromQmlFile("qrc:/TrainerSettings.qml", null, {});
         settingsWindow.closing.connect(menuPage.updatePagesSettings);
         //MainJs.readCurrentSettings();
     }

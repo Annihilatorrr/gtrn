@@ -1,3 +1,6 @@
+.import QtQml 2.2 as QtQml
+.import "common.js" as CommonJs
+
 function drawString(canvas)
 {
     var w = width;
@@ -72,10 +75,11 @@ function createNotes(height, fretThickness)
         "normalLabelTextColor":"#FFFFFF"
     };
 
-    notes[0] = createNote(openStringSettings);
+    notes[0] = createNote("qrc:/Note.qml", stringItem, openStringSettings);
     connectSignalToSlots(notes[0]);
     notes[0].showLabels(showNotesLabels);
     notes[0].displayActive(true);
+
     for (var i = 0, nameIndex = d.notesNames.indexOf(initialNote) + 1; i < notesNumber - 1 ; ++i, ++nameIndex)
     {
         var settings = {
@@ -95,29 +99,16 @@ function createNotes(height, fretThickness)
             ++octaveCounter;
         }
 
-        notes[i+1] = createNote(settings);
+        notes[i+1] = createNote("qrc:/Note.qml", stringItem, settings);
         connectSignalToSlots(notes[i+1]);
         notes[i+1].showLabels(showNotesLabels);
         notes[i+1].displayActive(i < activeFretsNumber);
     }
 }
 
-function createNote(settings)
+function createNote(componentFileName, parent, settings)
 {
-    var note;
-    var component = Qt.createComponent("qrc:/Note.qml");
-    if( component.status !== Component.Ready )
-    {
-        if( component.status === Component.Error )
-        {
-            console.debug("Error:"+ component.errorString() );
-        }
-    }
-    else
-    {
-        note = component.createObject(stringItem,settings);
-    }
-    return note;
+    return CommonJs.createObjectFromQmlFile(componentFileName, parent, settings);
 }
 
 function connectSignalToSlots(note)
