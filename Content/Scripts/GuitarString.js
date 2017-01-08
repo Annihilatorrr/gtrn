@@ -102,7 +102,7 @@ function createNotes(height, fretThickness)
         notes[i+1] = createNote("qrc:/Note.qml", stringItem, settings);
         connectSignalToSlots(notes[i+1]);
         notes[i+1].showLabels(showNotesLabels);
-        notes[i+1].displayActive(i < activeFretsNumber);
+        notes[i+1].displayActive(!trainingMode || i < activeFretsNumber);
     }
 }
 

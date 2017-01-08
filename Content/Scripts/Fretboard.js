@@ -114,7 +114,10 @@ function drawFretboard(canvas) {
     console.debug("Drawing ", maxFretsNumber, " frets")
     drawFrets(ctx);
 
-    fillNotUsedFretboardPart(ctx);
+    if (trainingMode)
+    {
+        fillNotUsedFretboardPart(ctx);
+    }
 
     ctx.restore();
 

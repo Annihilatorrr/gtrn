@@ -79,7 +79,6 @@ ApplicationWindow
                 anchors.leftMargin:40
                 anchors.rightMargin:40
 
-
                 onPressed: {
                     clickPos  = Qt.point(mouse.x,mouse.y)
                 }
@@ -109,6 +108,5 @@ ApplicationWindow
     {
         settingsWindow = CommonJs.createObjectFromQmlFile("qrc:/TrainerSettings.qml", null, {});
         settingsWindow.closing.connect(menuPage.updatePagesSettings);
-        //MainJs.readCurrentSettings();
     }
 }
