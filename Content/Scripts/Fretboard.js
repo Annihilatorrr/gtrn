@@ -11,11 +11,11 @@ function calculateFretDistances()
     var canvasWidth = width;
     var fretboardBeginning = widthAfterZeroFret;
     var stretchCoefficient = (canvasWidth - 50)/Math.ceil(canvasWidth - (canvasWidth / Math.pow(2,(maxFretsNumber/12.0))));
-    d.absoluteFretDistances[0] = fretboardBeginning;
+    fretBoard.absoluteFretDistances[0] = fretboardBeginning;
     for (var i = 1; i <= maxFretsNumber; ++i)
     {
         var distanceFromZeroFret = Math.ceil(canvasWidth - (canvasWidth / chromaticMultipliers[i-1]))*stretchCoefficient
-        d.absoluteFretDistances[i] = fretboardBeginning + distanceFromZeroFret;
+        fretBoard.absoluteFretDistances[i] = fretboardBeginning + distanceFromZeroFret;
     }
 }
 
@@ -42,7 +42,7 @@ function createStrings(componentFileName, stringNumber, parent)
     {
         var stringInitialNoteOctave = tuning[i].slice(-1);
         var initialNote = tuning[i].slice(0, -1);
-        var fretDistancesToDisplay = d.absoluteFretDistances.slice(0, maxFretsNumber + 2)
+        var fretDistancesToDisplay = fretBoard.absoluteFretDistances.slice(0, maxFretsNumber + 2)
         var settings = {
             "x": 0,
             "y": edgeMargin + i*spaceBetweenStrings - labelHeight/2,
@@ -109,7 +109,7 @@ function drawFretboard(canvas) {
     // zero fret
     ctx.beginPath();
     ctx.fillStyle = createGradientForZeroFret(ctx);
-    ctx.fillRect(d.absoluteFretDistances[0], 0, 10, height);
+    ctx.fillRect(fretBoard.absoluteFretDistances[0], 0, 10, height);
 
     console.debug("Drawing ", maxFretsNumber, " frets")
     drawFrets(ctx);
@@ -147,8 +147,8 @@ function setNotesLabelsVisible(visible)
 
 function drawMarkerIfNeeded(context, position)
 {
-    var currentFretDistance = d.absoluteFretDistances[position];
-    var nextFretDistance = d.absoluteFretDistances[position+1];
+    var currentFretDistance = fretBoard.absoluteFretDistances[position];
+    var nextFretDistance = fretBoard.absoluteFretDistances[position+1];
 
     switch(position)
     {
@@ -171,8 +171,8 @@ function drawMarkerIfNeeded(context, position)
 
 function fillNotUsedFretboardPart(context)
 {
-    var x1 = d.absoluteFretDistances[activeFretsNumber];
-    var x2 = d.absoluteFretDistances[maxFretsNumber];
+    var x1 = fretBoard.absoluteFretDistances[activeFretsNumber];
+    var x2 = fretBoard.absoluteFretDistances[maxFretsNumber];
     var notUserFretsRectangleWidth = x2 - x1;
     console.debug("Filling rect of not used frets", x1, 0, width - x1, height);
     context.fillStyle = "#80ffffff";
@@ -187,8 +187,8 @@ function drawFrets(context)
     for (var i = 1; i <= maxFretsNumber; ++i)
     {
         context.beginPath();
-        context.moveTo(d.absoluteFretDistances[i], 0);
-        context.lineTo(d.absoluteFretDistances[i], height);
+        context.moveTo(fretBoard.absoluteFretDistances[i], 0);
+        context.lineTo(fretBoard.absoluteFretDistances[i], height);
         context.stroke();
 
         drawMarkerIfNeeded(context, i)

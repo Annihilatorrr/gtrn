@@ -1,6 +1,6 @@
 QT += qml quick multimedia core gui
 
-CONFIG += c++11
+CONFIG += c++11 declarative_debug qml_debug
 
 SOURCES += main.cpp \
     soundplayer.cpp \

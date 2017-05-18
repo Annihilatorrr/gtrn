@@ -20,7 +20,7 @@ Item {
     property var tuning:[]
 
     QtObject {
-        id: d
+        id: fretBoard
 
         property int currentNonLabeledNoteStringIndex
         property int currentNonlabeledNoteFretIndex
@@ -40,10 +40,10 @@ Item {
         {
             if (trainingMode)
             {
-                d.currentNonLabeledNoteStringIndex = stringPosition;
-                d.currentNonlabeledNoteFretIndex = fretPosition
-                console.debug("Note to display nonlabeled", d.currentNonLabeledNoteStringIndex, d.currentNonlabeledNoteFretIndex);
-                var displayedNoteName = strings[d.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNote(d.currentNonlabeledNoteFretIndex);
+                fretBoard.currentNonLabeledNoteStringIndex = stringPosition;
+                fretBoard.currentNonlabeledNoteFretIndex = fretPosition
+                console.debug("Note to display nonlabeled", fretBoard.currentNonLabeledNoteStringIndex, fretBoard.currentNonlabeledNoteFretIndex);
+                var displayedNoteName = strings[fretBoard.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNote(fretBoard.currentNonlabeledNoteFretIndex);
                 nonlabeledNoteDisplayed(displayedNoteName);
             }
         }
@@ -55,8 +55,8 @@ Item {
     }
 
     onNotePressed: soundPlayer.onNotePressed(octave, name);
-    onDisplayNonLabeledNoteAsWrong: strings[d.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsWrong(d.currentNonlabeledNoteFretIndex);
-    onDisplayNonLabeledNoteAsRight: strings[d.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsRight(d.currentNonlabeledNoteFretIndex);
+    onDisplayNonLabeledNoteAsWrong: strings[fretBoard.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsWrong(fretBoard.currentNonlabeledNoteFretIndex);
+    onDisplayNonLabeledNoteAsRight: strings[fretBoard.currentNonLabeledNoteStringIndex - 1].displayNonLabeledNoteAsRight(fretBoard.currentNonlabeledNoteFretIndex);
 
     Rectangle {
         id:fretRect
